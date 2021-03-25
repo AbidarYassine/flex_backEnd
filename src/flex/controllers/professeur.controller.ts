@@ -12,6 +12,6 @@ export class ProfesseurController {
     }
     @Get()
     async getAll(): Promise<Professeur[]> {
-        return await this.prService.getAll();
-    }
+        return await this.prService.getAll();// ici on get tous les profs (ce commentaire est pour tester)
+    }é
 }
