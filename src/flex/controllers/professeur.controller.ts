@@ -3,7 +3,7 @@ import { ProfesseurDto } from '../dto/professeur.dto';
 import { Professeur } from '../model/professeur';
 import { ProfesseurService } from '../services/professeur.service';
 
-@Controller('proffesseurs')
+@Controller('professeurs')
 export class ProfesseurController {
     constructor(private prService: ProfesseurService) { }
     @Post()
