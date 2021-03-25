@@ -1,7 +1,7 @@
-export class ProfesseurDto {
+export class EtudiantDto {
     _id: string;
     nom: string;
     prenom: string;
     email: string;
-    admin: boolean = false;
+    cne: string;
 }
