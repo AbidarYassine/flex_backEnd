@@ -1,4 +1,4 @@
-export class ProffesseurDto {
+export class ProfesseurDto {
     nom: string;
     prenom: string;
     email: string;

@@ -6,7 +6,7 @@ import { FlexModule } from './flex/flex.module';
 
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://yassine:yassine@cluster0.paqnz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'), FlexModule],
+  imports: [MongooseModule.forRoot('mongodb+srv://yassine:yassine@cluster0.paqnz.mongodb.net/flex_db?retryWrites=true&w=majority'), FlexModule],
   controllers: [AppController],
   providers: [AppService],
 })
