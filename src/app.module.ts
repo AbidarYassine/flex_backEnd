@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { typeOrmOption } from './config/typeorm.config';
 import { FlexModule } from './flex/flex.module';
 
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://yassine:yassine@cluster0.paqnz.mongodb.net/flex_db?retryWrites=true&w=majority'), FlexModule],
+  imports: [TypeOrmModule.forRoot(typeOrmOption), FlexModule],
   controllers: [AppController],
   providers: [AppService],
 })

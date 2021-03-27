@@ -1,6 +1,6 @@
-import { Controller, Post, Get, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Put, Delete, Query } from '@nestjs/common';
 import { ProfesseurDto } from '../dto/professeur.dto';
-import { Professeur } from '../model/professeur';
+import { ProfesseurEntity } from '../model/professeur.entity';
 import { ProfesseurService } from '../services/professeur.service';
 
 @Controller('professeurs')
@@ -10,24 +10,25 @@ export class ProfesseurController {
     async saveProf(@Body() dtoProfes: ProfesseurDto) {
         return await this.prService.saveProfesseur(dtoProfes);
     }
-    @Put()
-    async editProf(@Body() dtoProfes: ProfesseurDto) {
-        return await this.prService.update(dtoProfes);
+    @Put(':id')
+    async editProf(@Body() dtoProfes: ProfesseurDto, @Param('id') id: number) {
+        return await this.prService.update(dtoProfes, id);
     }
-    @Delete()
-    async delete(@Body() dtoProfes: ProfesseurDto) {
-        return await this.prService.delete(dtoProfes);
+    @Delete(':id')
+    async delete(@Param('id') id: number) {
+        return await this.prService.delete(id);
     }
     @Get()
-    async getAll(): Promise<Professeur[]> {
+    async getAll(): Promise<ProfesseurEntity[]> {
         return await this.prService.getAll();
     }
     @Get(':id')
-    async getById(@Param('id') id: string): Promise<Professeur[]> {
+    async getById(@Param('id') id: number): Promise<ProfesseurEntity> {
         return await this.prService.getById(id);
     }
-    @Get('/email/:email')
-    async getByEmail(@Param('email') email: string): Promise<Professeur[]> {
+    @Get('/email/')
+    async getByEmail(@Query('email') email: string): Promise<ProfesseurEntity[]> {
+        console.log("find By Email");
         return await this.prService.getByEmail(email);
     }
 }

@@ -1,12 +1,15 @@
+import { ProfesseurDao } from './dao/professeur.dao';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProfesseurController } from './controllers/professeur.controller';
-import { ProfesseurSchema } from './model/professeur';
 import { ProfesseurService } from './services/professeur.service';
+import { EtudiantDao } from './dao/etudiantdao';
+import { EtudaintController } from './controllers/etudiant.controller';
+import { EtudaintService } from './services/etudiant.service';
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: "Professeur", schema: ProfesseurSchema }])],
-    controllers: [ProfesseurController],
-    providers: [ProfesseurService]
+    imports: [TypeOrmModule.forFeature([ProfesseurDao, EtudiantDao])],
+    controllers: [ProfesseurController, EtudaintController],
+    providers: [ProfesseurService, EtudaintService]
 })
 export class FlexModule { }

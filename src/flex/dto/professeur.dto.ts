@@ -1,7 +1,5 @@
-export class ProfesseurDto {
-    _id: string;
-    nom: string;
-    prenom: string;
-    email: string;
+import { UserDto } from "./user.dto";
+
+export class ProfesseurDto extends UserDto {
     admin: boolean = false;
 }

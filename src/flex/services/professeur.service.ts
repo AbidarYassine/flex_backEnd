@@ -1,32 +1,50 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { request } from 'express';
+import { getRepository } from 'typeorm';
+import { ProfesseurDao } from '../dao/professeur.dao';
 import { ProfesseurDto } from '../dto/professeur.dto';
-import { ProfesseurDocument } from '../model/professeur';
-import { Professeur } from '../model/professeur';
+import { ProfesseurEntity } from '../model/professeur.entity';
+
 
 @Injectable()
 export class ProfesseurService {
-    constructor(@InjectModel('Professeur') private professeurModel: Model<ProfesseurDocument>) { }
+    constructor(private profeDao: ProfesseurDao) { }
 
-    async saveProfesseur(profesDto: ProfesseurDto): Promise<Professeur> {
-        const professeurDto = new this.professeurModel(profesDto);
-        return await professeurDto.save();
+    async saveProfesseur(profesDto: ProfesseurDto): Promise<ProfesseurEntity> {
+        return await this.profeDao.createProfesseur(profesDto);
     }
-    async update(profesDto: ProfesseurDto): Promise<Professeur> {
-        const professeurDto = new this.professeurModel(profesDto);
-        return await professeurDto.update(profesDto);
+    async update(profesDto: ProfesseurDto, id: number): Promise<any> {
+        const professeur = await this.getById(id);
+        if (!professeur) {
+            request.statusCode = 404;
+            return new NotFoundException(`this id ${id} not existe`);
+        }
+        const { nom, prenom, email, admin } = profesDto;
+        professeur.email = email;
+        professeur.nom = nom;
+        professeur.prenom = prenom;
+        professeur.admin = admin;
+        await getRepository(ProfesseurEntity).save(professeur);
+        return professeur;
     }
-    async getAll(): Promise<Professeur[]> {
-        return await this.professeurModel.find();
+    async getAll(): Promise<ProfesseurEntity[]> {
+        return await this.profeDao.find();
     }
-    async getById(id: string): Promise<Professeur[]> {
-        return await this.professeurModel.find({_id: {$eq: id}});
+    async getById(id: number): Promise<ProfesseurEntity> {
+        return await this.profeDao.findOne(id);
     }
-    async getByEmail(email: string): Promise<Professeur[]> {
-        return await this.professeurModel.find({email: {$eq: email}});
+    async getByEmail(email: string): Promise<any> {
+        const prof = await getRepository(ProfesseurEntity)
+            .createQueryBuilder("professeur")
+            .where("professeur.email=:email", { email: email })
+        return prof;
     }
-    async delete(profesDto: ProfesseurDto): Promise<any>{
-        return await this.professeurModel.deleteOne(profesDto);
+    async delete(id: number): Promise<any> {
+        const professeur = await this.getById(id);
+        if (!professeur) {
+            request.statusCode = 404;
+            return new NotFoundException(`this id ${id} not existe`);
+        }
+        await getRepository(ProfesseurEntity).remove(professeur);
     }
 }
