@@ -1,16 +1,18 @@
-import { Column, OneToMany } from 'typeorm';
-import { PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity, Entity } from 'typeorm';
+import { Column, OneToMany, PrimaryGeneratedColumn, BaseEntity, Entity } from 'typeorm';
 import { PortEntity } from './porte.entity';
+import { EventEntity } from './event.entity';
 
 @Entity('salles')
-export class SalleEntity extends BaseEntity{
+export class SalleEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({ name: 'nom', type: 'varchar', length: 20 })
+    @Column({ name: 'nom', type: 'varchar', length: 100 })
     _nom: string;
+
+    @OneToMany(() => EventEntity, event => event.salle)
+    events: EventEntity[];
 
     get id() {
         return this._id;
@@ -22,7 +24,8 @@ export class SalleEntity extends BaseEntity{
     set nom(nom: string) {
         this._nom = nom;
     }
-    
+
     @OneToMany(() => PortEntity, porte => porte.id)
     portes: PortEntity[];
+
 }

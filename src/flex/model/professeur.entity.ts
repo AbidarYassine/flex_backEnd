@@ -3,7 +3,7 @@ import { ChildEntity, Column } from "typeorm";
 
 @ChildEntity()
 export class ProfesseurEntity extends UserEntity {
-    @Column({ name: 'admin' })
+    @Column({ name: 'admin', type:'boolean', default: false })
     _admin: boolean;
 
     get admin() {

@@ -9,7 +9,7 @@ export class PortEntity extends BaseEntity{
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({ name: 'nom', type: 'varchar', length: 20 })
+    @Column({ name: 'nom', type: 'varchar', length: 100 })
     _nom: string;
 
     get id() {

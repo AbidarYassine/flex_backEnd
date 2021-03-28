@@ -7,10 +7,10 @@ export class UserEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({ name: 'nom', type: 'varchar', length: 20 })
+    @Column({ name: 'nom', type: 'varchar', length: 50 })
     _nom: string;
 
-    @Column({ name: 'prenom', type: 'varchar', length: 20 })
+    @Column({ name: 'prenom', type: 'varchar', length: 50 })
     _prenom: string;
 
     @Column({ name: "email", unique: true })
