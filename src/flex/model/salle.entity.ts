@@ -1,6 +1,7 @@
-import { Column } from 'typeorm';
+import { Column, OneToMany } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity, Entity } from 'typeorm';
+import { PortEntity } from './porte.entity';
 
 @Entity('salles')
 export class SalleEntity extends BaseEntity{
@@ -21,4 +22,7 @@ export class SalleEntity extends BaseEntity{
     set nom(nom: string) {
         this._nom = nom;
     }
+    
+    @OneToMany(() => PortEntity, porte => porte.id)
+    portes: PortEntity[];
 }
