@@ -4,8 +4,8 @@ import { BaseEntity, Entity } from 'typeorm';
 import { SalleEntity } from './salle.entity';
 
 @Entity('portes')
-export class PortEntity extends BaseEntity{
-    
+export class PortEntity extends BaseEntity {
+
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
@@ -22,8 +22,8 @@ export class PortEntity extends BaseEntity{
     set nom(nom: string) {
         this._nom = nom;
     }
-    
+
     @ManyToOne(() => SalleEntity, salle => salle.portes)
-    @JoinColumn({ name: "porte_id", referencedColumnName: '_id' })
-    porte: PortEntity;
+    @JoinColumn({ name: "salle_id", referencedColumnName: '_id' })
+    salle: SalleEntity;
 }

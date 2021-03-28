@@ -25,7 +25,7 @@ export class SalleEntity extends BaseEntity {
         this._nom = nom;
     }
 
-    @OneToMany(() => PortEntity, porte => porte.id)
+    @OneToMany(() => PortEntity, porte => porte.salle)
     portes: PortEntity[];
 
 }

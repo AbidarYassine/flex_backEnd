@@ -1,6 +1,6 @@
 import { UserEntity } from './user.entity';
 import { ChildEntity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { FilierEntity } from './fliere.entity';
+import { FilierEntity } from './filiere.entity';
 
 @ChildEntity()
 export class EtudiantEntity extends UserEntity {

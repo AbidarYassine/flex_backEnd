@@ -6,7 +6,7 @@ import { PorteService } from "../services/porte.service";
 @Controller('portes')
 export class PorteController {
 
-    constructor(private porteService: PorteService) {}
+    constructor(private porteService: PorteService) { }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
@@ -17,7 +17,7 @@ export class PorteController {
         }
         return await this.porteService.save(porteDto);
     }
-    
+
     @Get()
     @HttpCode(HttpStatus.OK)
     async getAll(): Promise<PortEntity[]> {
