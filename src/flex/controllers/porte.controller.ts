@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import { PorteDto } from "../dto/porte.dto";
 import { PortEntity } from "../model/porte.entity";
 import { PorteService } from "../services/porte.service";
@@ -12,6 +12,10 @@ export class PorteController {
     @HttpCode(HttpStatus.CREATED)
     async save(@Body() porteDto: PorteDto) {
         const porte = await this.getByNom(porteDto.nom);
+        if (porte) {
+            throw new HttpException(`A door holds this name ${porteDto.nom} already existed !`, HttpStatus.BAD_REQUEST);
+        }
+        return await this.porteService.save(porteDto);
     }
     
     @Get()

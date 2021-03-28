@@ -1,4 +1,4 @@
-import { Controller, Post, HttpCode, HttpStatus, Body, Get, Param, Put, Delete } from "@nestjs/common";
+import { Controller, Post, HttpCode, HttpStatus, Body, Get, Param, Put, Delete, HttpException } from "@nestjs/common";
 import { SalleDto } from "../dto/salle.dto";
 import { SalleService } from "../services/salle.service";
 
@@ -10,7 +10,11 @@ export class SalleController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async save(@Body() salleDto: SalleDto) {
-        const porte = await this.getByNom(salleDto.nom);
+        const salle = await this.getByNom(salleDto.nom);
+        if (salle) {
+            throw new HttpException(`A class room holds this name ${salleDto.nom} already existed !`, HttpStatus.BAD_REQUEST);
+        }
+        return await this.salleService.save(salleDto);
     }
     
     @Get()
