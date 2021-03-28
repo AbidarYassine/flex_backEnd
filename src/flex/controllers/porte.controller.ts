@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import { PorteDto } from "../dto/porte.dto";
 import { PortEntity } from "../model/porte.entity";
-import { PorteSerive } from "../services/porte.service";
+import { PorteService } from "../services/porte.service";
 
 @Controller('portes')
 export class PorteController {
 
-    constructor(private porteService: PorteSerive) {}
+    constructor(private porteService: PorteService) {}
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
