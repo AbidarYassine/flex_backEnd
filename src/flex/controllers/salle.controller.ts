@@ -2,8 +2,8 @@ import { Controller, Post, HttpCode, HttpStatus, Body, Get, Param, Put, Delete }
 import { SalleDto } from "../dto/salle.dto";
 import { SalleService } from "../services/salle.service";
 
-@Controller('portes')
-export class PorteController {
+@Controller('salles')
+export class SalleController {
 
     constructor(private salleService: SalleService) {}
 

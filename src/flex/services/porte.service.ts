@@ -6,7 +6,7 @@ import { PorteDto } from "../dto/porte.dto";
 import { PortEntity } from "../model/porte.entity";
 
 @Injectable()
-export class PorteSerive {
+export class PorteService {
 
     constructor(private porteDao: PorteDao) {}
 
