@@ -9,7 +9,8 @@ export class ProfesseurController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async saveProf(@Body() dtoProfes: ProfesseurDto) {
-        const profFound = this.getByEmail(dtoProfes.email);
+        const profFound = await this.getByEmail(dtoProfes.email);
+        console.log("Professeur trouvé", profFound);
         if (profFound) {
             throw new HttpException(`Teacher with ${dtoProfes.email} already existe`, HttpStatus.BAD_REQUEST);
         }
