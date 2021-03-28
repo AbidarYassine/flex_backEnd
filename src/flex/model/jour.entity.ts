@@ -1,16 +1,15 @@
 import { EventEntity } from './event.entity';
-import { Column, OneToMany, PrimaryGeneratedColumn, BaseEntity, Entity } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('salles')
-export class SalleEntity extends BaseEntity{
-
+@Entity('jours')
+export class JourEntity extends BaseEntity{
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({ name: 'nom', type: 'varchar', length: 100 })
+    @Column({ name: 'nom', type: 'varchar', length: 20 })
     _nom: string;
 
-    @OneToMany(() => EventEntity, event => event.salle)
+    @OneToMany(() => EventEntity, event => event.jour)
     events: EventEntity[];
 
     get id() {
@@ -23,5 +22,4 @@ export class SalleEntity extends BaseEntity{
     set nom(nom: string) {
         this._nom = nom;
     }
-
 }
