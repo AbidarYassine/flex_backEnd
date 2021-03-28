@@ -1,6 +1,10 @@
+import { IsEmail, IsString } from "class-validator";
+
 export class UserDto {
-    _id?: number;
-    nom: string;
-    prenom: string;
-    email: string;
+    @IsString()
+    readonly nom: string;
+    @IsString()
+    readonly prenom: string;
+    @IsEmail()
+    readonly email: string;
 }

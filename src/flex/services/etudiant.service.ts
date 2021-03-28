@@ -7,7 +7,7 @@ import { EtudiantDto } from '../dto/etudiant.dto';
 export class EtudaintService {
     constructor(private etudDao: EtudiantDao) { }
     async saveEtudaint(etudDto: EtudiantDto): Promise<EtudiantEntity> {
-        return await this.etudDao.createProfesseur(etudDto);
+        return await this.etudDao.createEtudaint(etudDto);
     }
     async update(etudDto: EtudiantDto, id: number): Promise<any> {
         const etudaint = await this.getById(id);
@@ -32,6 +32,7 @@ export class EtudaintService {
         const etud = await getRepository(EtudiantEntity)
             .createQueryBuilder("etudiant")
             .where("etudiant.cne=:cne", { cne: cne })
+            .getOne()
         return etud;
     }
     async delete(id: number): Promise<any> {

@@ -1,5 +1,9 @@
+import { IsNumber, IsString } from "class-validator";
 import { UserDto } from "./user.dto";
 
 export class EtudiantDto extends UserDto {
-    cne: string;
+    @IsString()
+    readonly cne: string;
+    @IsNumber()
+    readonly filierId: number;
 }

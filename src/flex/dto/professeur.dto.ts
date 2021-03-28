@@ -1,5 +1,7 @@
+import { IsBoolean } from "class-validator";
 import { UserDto } from "./user.dto";
 
 export class ProfesseurDto extends UserDto {
-    admin: boolean = false;
+    @IsBoolean()
+    readonly admin: boolean = false;
 }

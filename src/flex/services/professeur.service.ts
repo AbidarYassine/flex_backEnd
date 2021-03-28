@@ -37,6 +37,7 @@ export class ProfesseurService {
         const prof = await getRepository(ProfesseurEntity)
             .createQueryBuilder("professeur")
             .where("professeur.email=:email", { email: email })
+            .getOne()
         return prof;
     }
     async delete(id: number): Promise<any> {
