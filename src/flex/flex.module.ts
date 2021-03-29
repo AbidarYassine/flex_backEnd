@@ -1,3 +1,6 @@
+import { EventController } from './controllers/event.controller';
+import { JourDao } from './dao/jourdao';
+import { JourService } from './services/jour.service';
 import { ProfilController } from './controllers/profil.controller';
 import { ProfesseurDao } from './dao/professeur.dao';
 import { Module } from '@nestjs/common';
@@ -14,8 +17,8 @@ import { FilierService } from './services/filier.service';
 import { FilierControlller } from './controllers/filier.controller';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ProfesseurDao, EtudiantDao, ProfilDao, FilierDao])],
-    controllers: [ProfesseurController, EtudaintController, ProfilController, FilierControlller],
-    providers: [ProfesseurService, EtudaintService, ProfilService, FilierService]
+    imports: [TypeOrmModule.forFeature([ProfesseurDao, EtudiantDao, ProfilDao, FilierDao, JourDao])],
+    controllers: [ProfesseurController, EtudaintController, ProfilController, FilierControlller, EventController],
+    providers: [ProfesseurService, EtudaintService, ProfilService, FilierService, JourService]
 })
 export class FlexModule { }
