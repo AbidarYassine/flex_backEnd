@@ -12,13 +12,21 @@ import { EtudaintController } from './controllers/etudiant.controller';
 import { EtudaintService } from './services/etudiant.service';
 import { ProfilDao } from './dao/profil.dao';
 import { ProfilService } from './services/profil.service';
-import { FilierDao } from './dao/filier.dao';
-import { FilierService } from './services/filier.service';
-import { FilierControlller } from './controllers/filier.controller';
+import { FiliereDao } from './dao/filiere.dao';
+import { FiliereService } from './services/filiere.service';
+import { FiliereControlller } from './controllers/filiere.controller';
+
+import { PorteDao } from './dao/porte.dao';
+import { SalleDao } from './dao/salle.dao';
+import { PorteService } from './services/porte.service'
+import { SalleService } from './services/salle.service'
+import { PorteController } from './controllers/porte.controller';
+import { SalleController } from './controllers/salle.controller';
+
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ProfesseurDao, EtudiantDao, ProfilDao, FilierDao, JourDao])],
-    controllers: [ProfesseurController, EtudaintController, ProfilController, FilierControlller, EventController],
-    providers: [ProfesseurService, EtudaintService, ProfilService, FilierService, JourService]
+    imports: [TypeOrmModule.forFeature([ProfesseurDao, EtudiantDao, ProfilDao, FiliereDao, PorteDao, SalleDao])],
+    controllers: [ProfesseurController, EtudaintController, ProfilController, FiliereControlller, PorteController, SalleController],
+    providers: [ProfesseurService, EtudaintService, ProfilService, FiliereService, PorteService, SalleService]
 })
 export class FlexModule { }

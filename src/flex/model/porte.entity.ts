@@ -1,10 +1,11 @@
-import { Column } from 'typeorm';
+import { Column, JoinColumn, ManyToOne } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity, Entity } from 'typeorm';
+import { SalleEntity } from './salle.entity';
 
 @Entity('portes')
-export class PortEntity extends BaseEntity{
-    
+export class PortEntity extends BaseEntity {
+
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
@@ -21,4 +22,8 @@ export class PortEntity extends BaseEntity{
     set nom(nom: string) {
         this._nom = nom;
     }
+
+    @ManyToOne(() => SalleEntity, salle => salle.portes)
+    @JoinColumn({ name: "salle_id", referencedColumnName: '_id' })
+    salle: SalleEntity;
 }
