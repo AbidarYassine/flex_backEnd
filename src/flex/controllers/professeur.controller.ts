@@ -12,30 +12,35 @@ export class ProfesseurController {
         const profFound = await this.getByEmail(dtoProfes.email);
         console.log("Professeur trouvé", profFound);
         if (profFound) {
-            throw new HttpException(`Teacher with ${dtoProfes.email} already existe`, HttpStatus.BAD_REQUEST);
+            throw new HttpException(`Teacher with ${dtoProfes.email} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
         }
         return await this.prService.saveProfesseur(dtoProfes);
     }
+
     @Put(':id')
     @HttpCode(HttpStatus.ACCEPTED)
     async editProf(@Body() dtoProfes: ProfesseurDto, @Param('id') id: number) {
         return await this.prService.update(dtoProfes, id);
     }
+    
     @Delete(':id')
-    @HttpCode(HttpStatus.NO_CONTENT)
+    @HttpCode(HttpStatus.ACCEPTED)
     async delete(@Param('id') id: number) {
         return await this.prService.delete(id);
     }
+
     @Get()
     @HttpCode(HttpStatus.OK)
     async getAll(): Promise<ProfesseurEntity[]> {
         return await this.prService.getAll();
     }
+
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     async getById(@Param('id') id: number): Promise<ProfesseurEntity> {
         return await this.prService.getById(id);
     }
+    
     @Get('email/:email')
     @HttpCode(HttpStatus.OK)
     async getByEmail(@Param('email') email: string): Promise<ProfesseurEntity[]> {

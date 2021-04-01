@@ -34,7 +34,7 @@ export class SalleService {
         const salle = await this.getById(id);
         if(!salle) {
             request.statusCode = 404;
-            return new NotFoundException(`No such class room with this id : ${id}`);
+            return new NotFoundException(`room not found !`);
         }
         salle.nom = salleDto.nom;
         await getRepository(SalleEntity).save(salle);
@@ -46,7 +46,7 @@ export class SalleService {
         const salle = await this.getById(id);
         if(!salle) {
             request.statusCode = 404;
-            return new NotFoundException(`No such class room with this id : ${id}`);
+            return new NotFoundException(`room not found !`);
         }
         await getRepository(SalleEntity).remove(salle);
     }

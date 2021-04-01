@@ -33,7 +33,7 @@ export class PorteService {
         const porte = await this.getById(id);
         if(!porte) {
             request.statusCode = 404;
-            return new NotFoundException(`No such door with this id : ${id}`);
+            return new NotFoundException(`Door not found`);
         }
         porte.nom = porteDto.nom;
         await getRepository(PortEntity).save(porte);
@@ -44,7 +44,7 @@ export class PorteService {
         const porte = await this.getById(id);
         if(!porte) {
             request.statusCode = 404;
-            return new NotFoundException(`No such door with this id : ${id}`);
+            return new NotFoundException(`Door not found`);
         }
         await getRepository(PortEntity).remove(porte);
     }
