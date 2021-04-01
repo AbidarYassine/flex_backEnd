@@ -12,7 +12,7 @@ export class SalleController {
     async save(@Body() salleDto: SalleDto) {
         const salle = await this.getByNom(salleDto.nom);
         if (salle) {
-            throw new HttpException(`A class room holds this name ${salleDto.nom} already existed !`, HttpStatus.BAD_REQUEST);
+            throw new HttpException(`A class room with this name ${salleDto.nom} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
         }
         return await this.salleService.save(salleDto);
     }
@@ -42,7 +42,7 @@ export class SalleController {
     }
 
     @Delete(':id')
-    @HttpCode(HttpStatus.NO_CONTENT)
+    @HttpCode(HttpStatus.ACCEPTED)
     async delete(@Param('id') id: number) {
         return await this.salleService.delete(id);
     }
