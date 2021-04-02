@@ -12,7 +12,7 @@ export class EtudaintService {
     async update(etudDto: EtudiantDto, id: number): Promise<any> {
         const etudaint = await this.getById(id);
         if (!etudaint) {
-            return new NotFoundException(`this id ${id} not existe`);
+            return new NotFoundException(`Etudiant not found !`);
         }
         const { nom, prenom, email, cne } = etudDto;
         etudaint.email = email;
@@ -29,16 +29,12 @@ export class EtudaintService {
         return await this.etudDao.findOne(id);
     }
     async getByCne(cne: string): Promise<any> {
-        const etud = await getRepository(EtudiantEntity)
-            .createQueryBuilder("etudiant")
-            .where("etudiant.cne=:cne", { cne: cne })
-            .getOne()
-        return etud;
+        return this.etudDao.findOne({ cne });
     }
     async delete(id: number): Promise<any> {
         const etudaint = await this.getById(id);
         if (!etudaint) {
-            return new NotFoundException(`this id ${id} not existe`);
+            return new NotFoundException(`Student not found !`);
         }
         await getRepository(EtudiantEntity).remove(etudaint);
     }

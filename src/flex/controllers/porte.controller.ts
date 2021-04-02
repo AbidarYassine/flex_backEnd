@@ -13,7 +13,7 @@ export class PorteController {
     async save(@Body() porteDto: PorteDto) {
         const porte = await this.getByNom(porteDto.nom);
         if (porte) {
-            throw new HttpException(`A door holds this name ${porteDto.nom} already existed !`, HttpStatus.BAD_REQUEST);
+            throw new HttpException(`A door with this name ${porteDto.nom} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
         }
         return await this.porteService.save(porteDto);
     }
@@ -43,7 +43,7 @@ export class PorteController {
     }
 
     @Delete(':id')
-    @HttpCode(HttpStatus.NO_CONTENT)
+    @HttpCode(HttpStatus.ACCEPTED)
     async delete(@Param('id') id: number) {
         return await this.porteService.delete(id);
     }

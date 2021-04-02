@@ -17,7 +17,7 @@ export class ProfesseurService {
         const professeur = await this.getById(id);
         if (!professeur) {
             request.statusCode = 404;
-            return new NotFoundException(`this id ${id} not existe`);
+            return new NotFoundException(`Professor not found !`);
         }
         const { nom, prenom, email, admin } = profesDto;
         professeur.email = email;
@@ -34,17 +34,13 @@ export class ProfesseurService {
         return await this.profeDao.findOne(id);
     }
     async getByEmail(email: string): Promise<any> {
-        const prof = await getRepository(ProfesseurEntity)
-            .createQueryBuilder("professeur")
-            .where("professeur.email=:email", { email: email })
-            .getOne()
-        return prof;
+        return this.profeDao.findOne({ email });
     }
     async delete(id: number): Promise<any> {
         const professeur = await this.getById(id);
         if (!professeur) {
             request.statusCode = 404;
-            return new NotFoundException(`this id ${id} not existe`);
+            return new NotFoundException(`Professor not found !`);
         }
         await getRepository(ProfesseurEntity).remove(professeur);
     }

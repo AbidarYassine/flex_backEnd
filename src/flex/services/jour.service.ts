@@ -3,18 +3,18 @@ import { JourDao } from './../dao/jourdao';
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
-export class JourService{
-    constructor(private jourDao: JourDao){
+export class JourService {
+    constructor(private jourDao: JourDao) {
         this.insertJours();
     }
 
-    async insertJours(){
+    async insertJours() {
         const jours = await this.jourDao.find();
 
-        if(jours.length == 0) await this.jourDao.insertJours();
+        if (jours.length == 0) await this.jourDao.insertJours();
     }
 
-    async getJour(ordre: number) : Promise<JourEntity>{
-        return this.jourDao.findOne({where:{ordre: ordre}});
+    async getJour(ordre: number): Promise<JourEntity> {
+        return this.jourDao.findOne({ ordre });
     }
 }
