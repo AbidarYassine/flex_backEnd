@@ -1,23 +1,23 @@
 import { SalleEntity } from './salle.entity';
 import { Column, OneToMany, PrimaryGeneratedColumn, BaseEntity, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-export class EventBaseEntity extends BaseEntity{
-    
+export class EventBaseEntity extends BaseEntity {
+
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
     @Column({ name: 'nom', type: 'varchar', length: 100 })
     _nom: string;
 
-    
+
     @Column({ name: 'desc', type: 'varchar' })
     _desc: string;
 
-    @Column({name:'heure_deb', type: 'varchar'})
+    @Column({ name: 'heure_deb', type: 'varchar' })
     _heureDeb: string;
-    
-    
-    @Column({name:'heure_fin', type: 'varchar'})
+
+
+    @Column({ name: 'heure_fin', type: 'varchar' })
     _heureFin: string;
 
     @ManyToOne(() => SalleEntity, salle => salle.events)
@@ -31,15 +31,15 @@ export class EventBaseEntity extends BaseEntity{
         return this._nom;
     }
 
-    get desc(){
+    get desc() {
         return this._desc;
     }
 
-    get heureDeb(){
+    get heureDeb() {
         return this._heureDeb;
     }
 
-    get heureFin(){
+    get heureFin() {
         return this._heureFin;
     }
 
@@ -47,15 +47,15 @@ export class EventBaseEntity extends BaseEntity{
         this._nom = nom;
     }
 
-    set desc(desc: string){
+    set desc(desc: string) {
         this._heureDeb = desc;
     }
 
-    set heureDeb(heure: string){
+    set heureDeb(heure: string) {
         this._heureDeb = heure;
     }
 
-    set heureFin(heure: string){
+    set heureFin(heure: string) {
         this._heureFin = heure;
     }
 

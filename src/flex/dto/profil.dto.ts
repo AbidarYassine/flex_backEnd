@@ -9,4 +9,6 @@ export class ProfilDto {
     readonly libelle: string;
     @IsArray()
     readonly filieres: string[];
+    @IsArray()
+    readonly professeurs: string[];
 }

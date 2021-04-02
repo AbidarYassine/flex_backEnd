@@ -16,9 +16,9 @@ export class FiliereControlller {
     @Get('nom/:nom')
     @HttpCode(HttpStatus.OK)
     async findByNom(@Param('nom') nom: string): Promise<FilierEntity> {
-        return await this.filierService.findByNom(nom);
+        return await this.filierService.findByNom(nom, true);
     }
-    
+
     @Get()
     @HttpCode(HttpStatus.OK)
     async findAll(): Promise<FilierEntity[]> {

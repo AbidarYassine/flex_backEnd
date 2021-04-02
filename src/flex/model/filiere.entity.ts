@@ -2,6 +2,7 @@ import { ProfilEntity } from './profil.entity';
 import { EtudiantEntity } from './etudiant.entity';
 import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { profile } from 'node:console';
+import { ProfesseurEntity } from './professeur.entity';
 
 @Entity('filieres')
 export class FilierEntity extends BaseEntity {
@@ -30,6 +31,8 @@ export class FilierEntity extends BaseEntity {
         }
     )
     profils: ProfilEntity[];
+
+
 
 
 }

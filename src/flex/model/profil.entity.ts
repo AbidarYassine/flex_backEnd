@@ -1,5 +1,6 @@
 import { FilierEntity } from './filiere.entity';
 import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ProfesseurEntity } from './professeur.entity';
 
 @Entity('profils')
 export class ProfilEntity extends BaseEntity {
@@ -31,6 +32,12 @@ export class ProfilEntity extends BaseEntity {
         (filiere) => filiere.profils,
     )
     filieres: FilierEntity[];
+
+    @ManyToMany(
+        type => ProfesseurEntity,
+        (professeur) => professeur.profils,
+    )
+    professeurs: ProfesseurEntity[];
 
 
 }
