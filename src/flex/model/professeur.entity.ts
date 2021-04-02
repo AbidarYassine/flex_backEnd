@@ -1,9 +1,11 @@
+import { FilierEntity } from './filiere.entity';
 import { UserEntity } from './user.entity';
-import { ChildEntity, Column } from "typeorm";
+import { ChildEntity, Column, JoinTable, ManyToMany } from "typeorm";
+import { ProfilEntity } from './profil.entity';
 
 @ChildEntity()
 export class ProfesseurEntity extends UserEntity {
-    @Column({ name: 'admin', type:'boolean', default: false })
+    @Column({ name: 'admin', type: 'boolean', default: false })
     _admin: boolean;
 
     get admin() {
@@ -13,5 +15,16 @@ export class ProfesseurEntity extends UserEntity {
     set admin(admin: boolean) {
         this._admin = admin;
     }
+    @JoinTable()
+    @ManyToMany(
+        type => (ProfilEntity),
+        profil => profil.professeurs,
+        {
+            cascade: true,
+        }
+    )
+    profils: ProfilEntity[];
+
+
 
 }

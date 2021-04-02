@@ -22,11 +22,57 @@ import { PorteService } from './services/porte.service'
 import { SalleService } from './services/salle.service'
 import { PorteController } from './controllers/porte.controller';
 import { SalleController } from './controllers/salle.controller';
+import { CreneauDao } from './dao/creneauDao';
+import { CreneauService } from './services/creneau.service';
+import { CreneauController } from './controllers/creneau.controller';
+import { EvenementService } from './services/evenement-service';
+import { EvenementController } from './controllers/evenement-controller';
+import { EvenementSpecialController } from './controllers/evenement-special-controller';
+import { EvenementSpecialService } from './services/evenement-special-service';
+import { EvenementLogService } from './services/evenement-log.service';
+import { EvenementLogController } from './controllers/evenement-log.controller';
+import { EvenementLogDao } from './dao/evenement-log.dao';
+import { EvenementDao } from './dao/evenement.dao';
+import { EvenementSpecialDao } from './dao/evenement.special.dao';
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ProfesseurDao, EtudiantDao, ProfilDao, FiliereDao, PorteDao, SalleDao])],
-    controllers: [ProfesseurController, EtudaintController, ProfilController, FiliereControlller, PorteController, SalleController],
-    providers: [ProfesseurService, EtudaintService, ProfilService, FiliereService, PorteService, SalleService]
+    imports: [
+        TypeOrmModule.forFeature([
+            ProfesseurDao,
+            EtudiantDao,
+            ProfilDao,
+            FiliereDao,
+            PorteDao,
+            SalleDao,
+            CreneauDao,
+            EvenementLogDao,
+            EvenementDao,
+            EvenementSpecialDao
+        ])],
+    controllers: [
+        ProfesseurController,
+        EtudaintController,
+        ProfilController,
+        FiliereControlller,
+        PorteController,
+        SalleController,
+        CreneauController,
+        EvenementController,
+        EvenementSpecialController,
+        EvenementLogController
+    ],
+    providers: [
+        EtudaintService,
+        ProfilService,
+        FiliereService,
+        PorteService,
+        SalleService,
+        ProfesseurService,
+        CreneauService,
+        EvenementService,
+        EvenementSpecialService,
+        EvenementLogService
+    ]
 })
 export class FlexModule { }
