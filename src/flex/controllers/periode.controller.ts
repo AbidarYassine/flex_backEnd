@@ -32,7 +32,7 @@ export class PeriodeController{
         // console.log("Debut", debut);
 
         if(debut > fin){
-            return new HttpException(`The begining date must be before the ending date.`, HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new HttpException(`The begining date must be before the ending date.`, HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
         return await this.periodeService.createPeriode(periodeDto);
@@ -53,7 +53,7 @@ export class PeriodeController{
         const periode = this.periodeDao.findOne(id);
 
         if(!periode){
-            return new HttpException(`Period not found`, HttpStatus.NOT_FOUND);
+            throw new HttpException(`Period not found`, HttpStatus.NOT_FOUND);
         }
 
         return await this.periodeService.updatePeriode(id, periodeDto);
@@ -64,7 +64,7 @@ export class PeriodeController{
         const periode = this.periodeDao.findOne(id);
 
         if(!periode){
-            return new HttpException(`Period not found`, HttpStatus.NOT_FOUND);
+            throw new HttpException(`Period not found`, HttpStatus.NOT_FOUND);
         }
 
         return await this.periodeService.delete(id);

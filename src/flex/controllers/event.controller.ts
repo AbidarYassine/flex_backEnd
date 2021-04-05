@@ -26,7 +26,7 @@ export class EventController {
 
         if(!salle){
             request.statusCode = 404;
-            return new NotFoundException(`Salle not found`);
+            throw new NotFoundException(`Salle not found`);
         }
 
         return await this.eventService.createEvent(eventDto);
@@ -54,14 +54,14 @@ export class EventController {
 
         if(!event){
             request.statusCode = 404;
-            return new NotFoundException(`Event not found`);
+            throw new NotFoundException(`Event not found`);
         }
 
         const salle = await getRepository(SalleEntity).findOne(eventDto.salleId);
 
         if(!salle){
             request.statusCode = 404;
-            return new NotFoundException(`Salle not found`);
+            throw new NotFoundException(`Salle not found`);
         }
 
         return await this.eventService.updateEvent(id, eventDto);
@@ -73,7 +73,7 @@ export class EventController {
 
         if(!event){
             request.statusCode = 404;
-            return new NotFoundException(`Event not found`);
+            throw new NotFoundException(`Event not found`);
         }
 
         return await this.eventService.delete(id);
