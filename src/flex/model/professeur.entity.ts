@@ -1,4 +1,3 @@
-import { FilierEntity } from './filiere.entity';
 import { UserEntity } from './user.entity';
 import { ChildEntity, Column, JoinTable, ManyToMany } from "typeorm";
 import { ProfilEntity } from './profil.entity';

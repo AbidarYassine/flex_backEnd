@@ -17,7 +17,7 @@ export class FiliereService {
     async saveFilere(filereDto: CreateFiliereDto): Promise<FilierEntity> {
         const filiereFound = await this.findByNom(filereDto.nom, false);
         if (filiereFound) {
-            throw new HttpException(`this branch '${filereDto.nom}' already existe`, HttpStatus.BAD_REQUEST);
+            throw new HttpException(`the branch '${filereDto.nom}' already exists`, HttpStatus.BAD_REQUEST);
         }
         const filiere = new FilierEntity();
         filiere.nom = filereDto.nom;
@@ -28,7 +28,7 @@ export class FiliereService {
         const foundFilere = await getRepository(FilierEntity).findOne({ _nom }, { relations: ['profils'] });
         if (throwException) {
             if (!foundFilere) {
-                throw new HttpException(`this branch '${_nom}' not found`, HttpStatus.BAD_REQUEST);
+                throw new HttpException(`the branch '${_nom}' not found`, HttpStatus.BAD_REQUEST);
             }
         }
 
@@ -43,8 +43,9 @@ export class FiliereService {
         if (existingFil) {
             return existingFil;
         }
-        throw new HttpException(` filier is already existe`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(` ${nom} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+    
     async getAll(): Promise<FilierEntity[]> {
         return await this.filierDao.find({ relations: ['profils'] });
     }

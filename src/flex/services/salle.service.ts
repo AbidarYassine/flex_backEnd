@@ -25,8 +25,8 @@ export class SalleService {
         return await this.salleDao.findOne(id);
     }
 
-    async getByNom(nom: string): Promise<SalleEntity | undefined> {
-        return await this.salleDao.findOne({ nom });
+    async getByNom(_nom: string): Promise<SalleEntity | undefined> {
+        return await this.salleDao.findOne({ _nom });
     }
 
     // *** update services ***
@@ -34,7 +34,7 @@ export class SalleService {
         const salle = await this.getById(id);
         if(!salle) {
             request.statusCode = 404;
-            return new NotFoundException(`room not found !`);
+            return new NotFoundException(`Room not found !`);
         }
         salle.nom = salleDto.nom;
         await getRepository(SalleEntity).save(salle);
@@ -46,7 +46,7 @@ export class SalleService {
         const salle = await this.getById(id);
         if(!salle) {
             request.statusCode = 404;
-            return new NotFoundException(`room not found !`);
+            return new NotFoundException(`Room not found !`);
         }
         await getRepository(SalleEntity).remove(salle);
     }

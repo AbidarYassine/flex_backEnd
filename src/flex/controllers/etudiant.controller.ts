@@ -5,8 +5,8 @@ import { EtudaintService } from '../services/etudiant.service';
 import { FilierEntity } from '../model/filiere.entity';
 import { getRepository } from 'typeorm';
 
-@Controller('etudaints')
-export class EtudaintController {
+@Controller('etudiants')
+export class EtudiantController {
     constructor(private etuService: EtudaintService) { }
 
     @Post()

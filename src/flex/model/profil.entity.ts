@@ -1,3 +1,5 @@
+import { SpecialEventEntity } from './special_event.entity';
+import { EventEntity } from './event.entity';
 import { FilierEntity } from './filiere.entity';
 import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProfesseurEntity } from './professeur.entity';
@@ -11,6 +13,8 @@ export class ProfilEntity extends BaseEntity {
     _libelle: string;
     @Column({ name: 'open' })
     _open: boolean;
+
+
     get open() {
         return this._open;
     }
@@ -39,5 +43,10 @@ export class ProfilEntity extends BaseEntity {
     )
     professeurs: ProfesseurEntity[];
 
+    @ManyToMany(()=> EventEntity, event => event.profiles)
+    events: EventEntity;
+    
+    @ManyToMany(()=> SpecialEventEntity, specialEvent => specialEvent.profiles)
+    specialEvents: SpecialEventEntity;
 
 }

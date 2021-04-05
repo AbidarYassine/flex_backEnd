@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import { EtudiantEntity } from './../model/etudiant.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { EtudiantDao } from '../dao/etudiantdao';
+import { EtudiantDao } from '../dao/etudiant.dao';
 import { EtudiantDto } from '../dto/etudiant.dto';
 @Injectable()
 export class EtudaintService {
@@ -36,7 +36,8 @@ export class EtudaintService {
         if (!etudaint) {
             return new NotFoundException(`Student not found !`);
         }
-        await getRepository(EtudiantEntity).remove(etudaint);
+        
+        return await getRepository(EtudiantEntity).remove(etudaint);
     }
 
 

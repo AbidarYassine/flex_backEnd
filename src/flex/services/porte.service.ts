@@ -46,7 +46,7 @@ export class PorteService {
             request.statusCode = 404;
             return new NotFoundException(`Door not found`);
         }
-        await getRepository(PortEntity).remove(porte);
+        return await getRepository(PortEntity).remove(porte);
     }
 
 }

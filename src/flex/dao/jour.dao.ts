@@ -1,4 +1,4 @@
-import { JourEntity } from './../model/jour.entity';
+import { JourEntity } from '../model/jour.entity';
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 
 @EntityRepository(JourEntity)

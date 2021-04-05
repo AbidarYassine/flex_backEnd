@@ -1,3 +1,4 @@
+import { RepetitionEntity } from './repetition.entity';
 import { EventEntity } from './event.entity';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -12,8 +13,11 @@ export class JourEntity extends BaseEntity{
     @Column({ name: 'nom', type: 'varchar', length: 20 })
     _nom: string;
 
-    @OneToMany(() => EventEntity, event => event.jour)
-    events: EventEntity[];
+    
+    @OneToMany(() => RepetitionEntity, repetition => repetition.jour)
+    repetitions: RepetitionEntity[];
+
+
 
     get id() {
         return this._id;

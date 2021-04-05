@@ -58,6 +58,6 @@ export class ProfesseurService {
             request.statusCode = 404;
             throw new NotFoundException(`Professor not found !`);
         }
-        await getRepository(ProfesseurEntity).remove(professeur);
+        return await getRepository(ProfesseurEntity).remove(professeur);
     }
 }

@@ -1,3 +1,4 @@
+import { SpecialEventEntity } from './special_event.entity';
 import { Column, OneToMany, PrimaryGeneratedColumn, BaseEntity, Entity } from 'typeorm';
 import { PortEntity } from './porte.entity';
 import { EventEntity } from './event.entity';
@@ -13,6 +14,10 @@ export class SalleEntity extends BaseEntity {
 
     @OneToMany(() => EventEntity, event => event.salle)
     events: EventEntity[];
+    
+    
+    @OneToMany(() => SpecialEventEntity, specialEvent => specialEvent.salle)
+    specialEvents: SpecialEventEntity[];
 
     get id() {
         return this._id;
