@@ -28,12 +28,14 @@ import { CreneauService } from './services/creneau.service';
 import { CreneauController } from './controllers/creneau.controller';
 import { EventService } from './services/event.service';
 import { SpecialEventService } from './services/special-event.service';
-import { EventLogService } from './services/event-log.service';
+
 import { EventLogDao } from './dao/event-log.dao';
 import { EventDao } from './dao/event.dao';
 import { SpecialEventDao } from './dao/special-event.dao';
 import { RepetitionDao } from './dao/repetition.dao';
 import { PeriodeController } from './controllers/periode.controller';
+import { EventLogService } from './services/event.log.service';
+import { EventLogController } from './controllers/eventLog.controller';
 
 
 @Module({
@@ -53,7 +55,7 @@ import { PeriodeController } from './controllers/periode.controller';
             RepetitionDao,
             EventDao,
             PeriodeDao,
-            
+
         ])],
     controllers: [
         ProfesseurController,
@@ -65,6 +67,7 @@ import { PeriodeController } from './controllers/periode.controller';
         CreneauController,
         EventController,
         PeriodeController,
+        EventLogController,
     ],
     providers: [
         EtudaintService,
