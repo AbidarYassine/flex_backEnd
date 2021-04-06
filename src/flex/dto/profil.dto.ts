@@ -1,6 +1,12 @@
-import { IsBoolean } from "class-validator";
+import { IsArray, IsBoolean, IsJSON, IsString } from "class-validator";
 
 export class ProfilDto {
     @IsBoolean()
-    open: boolean;
+    readonly open: boolean = false;
+    @IsString()
+    readonly libelle: string;
+    @IsArray()
+    readonly filieres: string[];
+    @IsArray()
+    readonly professeurs: string[];
 }

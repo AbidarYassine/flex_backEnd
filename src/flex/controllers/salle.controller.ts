@@ -10,7 +10,7 @@ export class SalleController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async save(@Body() salleDto: SalleDto) {
-        const salle = await this.getByNom(salleDto.nom);
+        const salle = await this.salleService.getByNom(salleDto.nom);
         if (salle) {
             throw new HttpException(`A class room with this name ${salleDto.nom} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
         }

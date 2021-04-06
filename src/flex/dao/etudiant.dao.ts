@@ -1,5 +1,5 @@
 import { FilierEntity } from '../model/filiere.entity';
-import { EtudiantEntity } from './../model/etudiant.entity';
+import { EtudiantEntity } from '../model/etudiant.entity';
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 import { EtudiantDto } from '../dto/etudiant.dto';
 import { NotFoundException } from '@nestjs/common';

@@ -1,5 +1,5 @@
 import { JourEntity } from './../model/jour.entity';
-import { JourDao } from './../dao/jourdao';
+import { JourDao } from '../dao/jour.dao';
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
