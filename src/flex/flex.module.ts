@@ -106,7 +106,8 @@ import { JourService } from './services/jour.service';
         EventLogService,
         JourService,
         PeriodeService,
-        ListePresenceService
+        ListePresenceService,
+        SpecialEventService
 
     ]
 })
