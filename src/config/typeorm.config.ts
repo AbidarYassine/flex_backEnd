@@ -8,5 +8,8 @@ export const typeOrmOption: TypeOrmModuleOptions = {
     password: '',
     database: 'flex_db',
     entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-    synchronize: false,
+    synchronize: true,
+    cache: {
+        duration: 30000 // 30 seconds
+    }
 }

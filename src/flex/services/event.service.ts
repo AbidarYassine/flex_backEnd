@@ -8,14 +8,14 @@ import { EventDto } from '../dto/event.dto';
 import { RepetitionDao } from '../dao/repetition.dao';
 
 @Injectable()
-export class EventService { 
+export class EventService {
     constructor(
         private profilsService: ProfilService,
         private repetitionDao: RepetitionDao,
         private eventDao: EventDao,
     ) { }
 
-    async createEvent(eventDto: EventDto){
+    async createEvent(eventDto: EventDto) {
         const event = new EventEntity();
 
         event.nom = eventDto.nom;
@@ -38,22 +38,22 @@ export class EventService {
 
     }
 
-    async findAll(){
+    async findAll() {
         // return await this.eventDao.find();
         return await this.eventDao.find({ relations: ['profiles', 'repetitions'] });
     }
 
-    async findById(id: number){
-        return await this.eventDao.findOne(id, {relations: ['profiles', 'repetitions']});
+    async findById(id: number) {
+        return await this.eventDao.findOne(id, { relations: ['profiles', 'repetitions'] });
     }
 
-    async findByNom(nom: string){
-        return await this.eventDao.find({where:{ _nom : Like(`%${nom}%`) }, relations: ['profiles', 'repetitions']});
+    async findByNom(nom: string) {
+        return await this.eventDao.find({ where: { _nom: Like(`%${nom}%`) }, relations: ['profiles', 'repetitions'] });
     }
 
-    async updateEvent(id: number, eventDto: EventDto){
+    async updateEvent(id: number, eventDto: EventDto) {
         const event = await this.eventDao.findOne(id);
-        
+
         event.nom = eventDto.nom;
         event.desc = eventDto.desc;
         event.salle = await getRepository(SalleEntity).findOne(eventDto.salleId);
@@ -72,7 +72,7 @@ export class EventService {
         return await getRepository(EventEntity).save(event);
     }
 
-    async delete(id: number){
+    async delete(id: number) {
         const event = await this.eventDao.findOne(id);
 
         return await getRepository(EventEntity).remove(event);
