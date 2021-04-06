@@ -3,17 +3,17 @@ import { EventEntity } from './event.entity';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('jours')
-export class JourEntity extends BaseEntity{
+export class JourEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({name:'ordre'})
+    @Column({ name: 'ordre' })
     _ordre: number;
 
     @Column({ name: 'nom', type: 'varchar', length: 20 })
     _nom: string;
 
-    
+
     @OneToMany(() => RepetitionEntity, repetition => repetition.jour)
     repetitions: RepetitionEntity[];
 

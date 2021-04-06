@@ -36,6 +36,9 @@ import { RepetitionDao } from './dao/repetition.dao';
 import { PeriodeController } from './controllers/periode.controller';
 import { EventLogService } from './services/event.log.service';
 import { EventLogController } from './controllers/eventLog.controller';
+import { ListePresenceService } from './services/liste-presence.service';
+import { ListePresenceController } from './controllers/liste-presence.controller';
+import { ListePresenceDao } from './dao/liste-presence.dao.ts';
 
 
 @Module({
@@ -55,6 +58,8 @@ import { EventLogController } from './controllers/eventLog.controller';
             RepetitionDao,
             EventDao,
             PeriodeDao,
+            EventLogDao,
+            ListePresenceDao,
 
         ])],
     controllers: [
@@ -68,6 +73,7 @@ import { EventLogController } from './controllers/eventLog.controller';
         EventController,
         PeriodeController,
         EventLogController,
+        ListePresenceController
     ],
     providers: [
         EtudaintService,
@@ -82,6 +88,7 @@ import { EventLogController } from './controllers/eventLog.controller';
         EventLogService,
         JourService,
         PeriodeService,
+        ListePresenceService
     ]
 })
 export class FlexModule { }
