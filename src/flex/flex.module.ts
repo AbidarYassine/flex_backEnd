@@ -1,44 +1,61 @@
-import { PeriodeService } from './services/periode.service';
-import { PeriodeDao } from './dao/periode.dao';
-import { EventController } from './controllers/event.controller';
-import { JourDao } from './dao/jour.dao';
-import { JourService } from './services/jour.service';
-import { ProfilController } from './controllers/profil.controller';
-import { ProfesseurDao } from './dao/professeur.dao';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProfesseurController } from './controllers/professeur.controller';
-import { ProfesseurService } from './services/professeur.service';
-import { EtudiantDao } from './dao/etudiant.dao';
-import { EtudiantController } from './controllers/etudiant.controller';
-import { EtudaintService } from './services/etudiant.service';
+
 import { ProfilDao } from './dao/profil.dao';
 import { ProfilService } from './services/profil.service';
+import { ProfilController } from './controllers/profil.controller';
+
+import { ProfesseurDao } from './dao/professeur.dao';
+import { ProfesseurService } from './services/professeur.service';
+import { ProfesseurController } from './controllers/professeur.controller';
+
+import { EtudiantDao } from './dao/etudiant.dao';
+import { EtudaintService } from './services/etudiant.service';
+import { EtudiantController } from './controllers/etudiant.controller';
+
 import { FiliereDao } from './dao/filiere.dao';
 import { FiliereService } from './services/filiere.service';
 import { FiliereControlller } from './controllers/filiere.controller';
+
 import { PorteDao } from './dao/porte.dao';
-import { SalleDao } from './dao/salle.dao';
 import { PorteService } from './services/porte.service'
-import { SalleService } from './services/salle.service'
 import { PorteController } from './controllers/porte.controller';
+
+import { SalleDao } from './dao/salle.dao';
+import { SalleService } from './services/salle.service'
 import { SalleController } from './controllers/salle.controller';
+
 import { CreneauDao } from './dao/creneau.dao';
 import { CreneauService } from './services/creneau.service';
 import { CreneauController } from './controllers/creneau.controller';
+
+import { EventDao } from './dao/event.dao';
 import { EventService } from './services/event.service';
-import { SpecialEventService } from './services/special-event.service';
+import { EventController } from './controllers/event.controller';
 
 import { EventLogDao } from './dao/event-log.dao';
-import { EventDao } from './dao/event.dao';
-import { SpecialEventDao } from './dao/special-event.dao';
-import { RepetitionDao } from './dao/repetition.dao';
-import { PeriodeController } from './controllers/periode.controller';
 import { EventLogService } from './services/event.log.service';
 import { EventLogController } from './controllers/eventLog.controller';
+
+import { SpecialEventDao } from './dao/special-event.dao';
+import { SpecialEventService } from './services/event-special.service';
+import { SpecialEventController } from './controllers/special_event.controller';
+
+import { RepetitionDao } from './dao/repetition.dao';
+import { RepetitionService } from './services/repetition.service';
+//import { RepetitionController } from './controllers/repetition.controller';
+
+import { PeriodeDao } from './dao/periode.dao';
+import { PeriodeService } from './services/periode.service';
+import { PeriodeController } from './controllers/periode.controller';
 import { ListePresenceService } from './services/liste-presence.service';
 import { ListePresenceController } from './controllers/liste-presence.controller';
 import { ListePresenceDao } from './dao/liste-presence.dao.ts';
+
+import { JourDao } from './dao/jour.dao';
+import { JourService } from './services/jour.service';
+//import { JourController } from './controllers/jour.controller';
+
 
 
 @Module({
@@ -72,8 +89,10 @@ import { ListePresenceDao } from './dao/liste-presence.dao.ts';
         CreneauController,
         EventController,
         PeriodeController,
+        SpecialEventController,
         EventLogController,
         ListePresenceController
+
     ],
     providers: [
         EtudaintService,
@@ -84,11 +103,11 @@ import { ListePresenceDao } from './dao/liste-presence.dao.ts';
         ProfesseurService,
         CreneauService,
         EventService,
-        SpecialEventService,
         EventLogService,
         JourService,
         PeriodeService,
         ListePresenceService
+
     ]
 })
 export class FlexModule { }

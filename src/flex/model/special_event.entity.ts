@@ -36,6 +36,22 @@ export class SpecialEventEntity extends EventBaseEntity {
         this._heureFin = heure;
     }
 
+    get date() {
+        return this._date
+    }
+
+    set date(date: Date) {
+        this._date = date;
+    }
+
+    get activated() {
+        return this._activated;
+    }
+
+    set activated(activated: boolean) {
+        this._activated = activated;
+    }
+
     @ManyToOne(() => SalleEntity, salle => salle.specialEvents)
     @JoinColumn({ name: "salle_id", referencedColumnName: '_id' })
     salle: SalleEntity;
