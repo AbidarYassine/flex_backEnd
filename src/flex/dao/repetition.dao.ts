@@ -17,8 +17,6 @@ export class RepetitionDao extends Repository<RepetitionEntity>{
         repetition.creneau = await getRepository(CreneauEntity).findOne({ ordre: repetitionDto.creaneauOrder });
         repetition.event = await getRepository(EventEntity).findOne(repetitionDto.eventId);
 
-        await getRepository(RepetitionEntity).save(repetition);
-
-        return repetition;
+        return await getRepository(RepetitionEntity).save(repetition);
     }
 }
