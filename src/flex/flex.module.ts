@@ -53,6 +53,9 @@ import { JourDao } from './dao/jour.dao';
 import { JourService } from './services/jour.service';
 //import { JourController } from './controllers/jour.controller';
 
+import { DoorControleService } from './services/door_controle.service';
+import { DoorControleController } from './controllers/door_controle.controller';
+
 
 @Module({
     imports: [
@@ -85,6 +88,7 @@ import { JourService } from './services/jour.service';
         PeriodeController,
         SpecialEventController,
         EventLogController,
+        DoorControleController
         
     ],
     providers: [
@@ -101,6 +105,7 @@ import { JourService } from './services/jour.service';
         PeriodeService,
         SpecialEventService,
         RepetitionService,
+        DoorControleService,
 
     ]
 })
