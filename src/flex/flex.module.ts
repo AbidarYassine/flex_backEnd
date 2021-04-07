@@ -48,6 +48,9 @@ import { RepetitionService } from './services/repetition.service';
 import { PeriodeDao } from './dao/periode.dao';
 import { PeriodeService } from './services/periode.service';
 import { PeriodeController } from './controllers/periode.controller';
+import { ListePresenceService } from './services/liste-presence.service';
+import { ListePresenceController } from './controllers/liste-presence.controller';
+import { ListePresenceDao } from './dao/liste-presence.dao.ts';
 
 import { JourDao } from './dao/jour.dao';
 import { JourService } from './services/jour.service';
@@ -55,6 +58,7 @@ import { JourService } from './services/jour.service';
 
 import { DoorControleService } from './services/door_controle.service';
 import { DoorControleController } from './controllers/door_controle.controller';
+
 
 
 @Module({
@@ -74,6 +78,8 @@ import { DoorControleController } from './controllers/door_controle.controller';
             RepetitionDao,
             EventDao,
             PeriodeDao,
+            EventLogDao,
+            ListePresenceDao,
 
         ])],
     controllers: [
@@ -88,8 +94,9 @@ import { DoorControleController } from './controllers/door_controle.controller';
         PeriodeController,
         SpecialEventController,
         EventLogController,
-        DoorControleController
-        
+        DoorControleController,
+        ListePresenceController
+
     ],
     providers: [
         EtudaintService,
@@ -106,6 +113,8 @@ import { DoorControleController } from './controllers/door_controle.controller';
         SpecialEventService,
         RepetitionService,
         DoorControleService,
+        ListePresenceService,
+        SpecialEventService
 
     ]
 })

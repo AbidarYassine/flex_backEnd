@@ -22,7 +22,7 @@ export class FilierEntity extends BaseEntity {
     }
     @OneToMany(() => EtudiantEntity, etudiant => etudiant.filiere)
     etudiants: EtudiantEntity[];
-    
+
     @JoinTable()
     @ManyToMany(
         type => (ProfilEntity),

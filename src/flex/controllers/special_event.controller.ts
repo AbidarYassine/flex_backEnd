@@ -11,17 +11,16 @@ export class SpecialEventController {
     
     constructor(
         private specialEventService: SpecialEventService,
-        private specialEventDao: SpecialEventDao,
     ) { }
 
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    async createEvent(@Body() specialEventDto: SpecialEventDto){
+    async createEvent(@Body() specialEventDto: SpecialEventDto) {
 
         const salle = await getRepository(SalleEntity).findOne(specialEventDto.salleId);
 
-        if(!salle){
+        if (!salle) {
             request.statusCode = 404;
             throw new NotFoundException(`Salle not found`);
         }
@@ -30,33 +29,33 @@ export class SpecialEventController {
     }
 
     @Get()
-    async findAll(){
+    async findAll() {
         return await this.specialEventService.findAll();
     }
 
     @Get(':id')
-    async findById(@Param('id') id: number){
+    async findById(@Param('id') id: number) {
         return await this.specialEventService.findById(id);
     }
-    
-    
+
+
     @Get('/nom/:nom')
-    async findByNom(@Param('nom') nom: string){
+    async findByNom(@Param('nom') nom: string) {
         return await this.specialEventService.findByNom(nom);
     }
 
     @Put(':id')
-    async updateEvent(@Param('id') id: number, @Body() specialEventDto: SpecialEventDto){
-        const event = await this.specialEventDao.findOne(id);
+    async updateEvent(@Param('id') id: number, @Body() specialEventDto: SpecialEventDto) {
+        const event = await this.specialEventService.findById(id);
 
-        if(!event){
+        if (!event) {
             request.statusCode = 404;
             throw new NotFoundException(`Special event not found !`);
         }
 
         const salle = await getRepository(SalleEntity).findOne(specialEventDto.salleId);
 
-        if(!salle){
+        if (!salle) {
             request.statusCode = 404;
             throw new NotFoundException(`Salle not found !`);
         }
@@ -65,10 +64,10 @@ export class SpecialEventController {
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: number){
-        const event = await this.specialEventDao .findOne(id);
+    async delete(@Param('id') id: number) {
+        const event = await this.specialEventService.findById(id);
 
-        if(!event){
+        if (!event) {
             request.statusCode = 404;
             throw new NotFoundException(`Special event not found !`);
         }
