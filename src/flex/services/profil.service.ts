@@ -60,8 +60,18 @@ export class ProfilService {
         return foundProfil;
     }
 
-    isProfesseurInProfile(prof: ProfesseurEntity, profile: ProfilEntity): boolean {
-        return profile.professeurs.includes(prof);
+    async isProfesseurInProfile(prof: ProfesseurEntity, profileId: number): Promise<boolean> {
+        const profile = await this.findById(profileId);
+        // console.log("Profs", profile.professeurs);
+        let found = false;
+        profile.professeurs.forEach(p =>{
+            if(p.id == prof.id){
+                found = true;
+                return;
+            } 
+        });
+
+        return found;
     }
 
 }

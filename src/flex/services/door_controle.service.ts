@@ -23,11 +23,13 @@ export class DoorControleService {
 
         if(events.length == 0) return false;
 
-        events.forEach(event => {
-            event.profiles.forEach(profile => {
-                if(this.profileService.isProfesseurInProfile(prof, profile)) return true;
-            })
-        })
+        for(let i = 0; i < events.length; i++){
+            for(let j = 0; j < events[i].profiles.length; j++){
+                console.log(events[i].profiles[j].id);
+                if(await this.profileService.isProfesseurInProfile(prof, events[i].profiles[j].id)) return true;
+            }
+        }
+
         return false;
     }
 

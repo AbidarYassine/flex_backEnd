@@ -9,6 +9,6 @@ async function bootstrap() {
     forbidNonWhitelisted: true,// with error
     transform: true, // il va transformer le type de la requete to expected  dto type
   }));
-  await app.listen(3001);
+  await app.listen(3000);
 }
 bootstrap();

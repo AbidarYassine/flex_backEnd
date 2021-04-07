@@ -1,14 +1,17 @@
+import { EventEntity } from './../model/event.entity';
+import { getRepository } from 'typeorm';
 import { RepetitionDto } from './../dto/repetition.dto';
 import { Injectable } from "@nestjs/common";
 import { RepetitionDao } from "../dao/repetition.dao";
 import { RepetitionEntity } from '../model/repetition.entity';
-import { DateTimeFormatter, LocalDate, LocalTime } from '@js-joda/core';
+import { LocalDate, LocalTime } from '@js-joda/core';
 import { DateUtils } from '../utils/dateUtils';
 import { TimeUtils } from '../utils/timeUtils';
 
 @Injectable()
 export class RepetitionService {
     constructor(
+        // private eventService: EventService,
         private repetitionDao: RepetitionDao,
     ) { }
 
@@ -17,16 +20,21 @@ export class RepetitionService {
     }
 
     async findAll() {
-        return await this.repetitionDao.find({ relations: ["events", "periodes", "jours", "creneaux"] });
+        return await this.repetitionDao.find({ relations: ["event", "periode", "jour", "creneau"] });
     }
 
     async findById(repetitionId: number) {
-        return await this.repetitionDao.findOne(repetitionId, { relations: ["events", "periodes", "jours", "creneaux"] });
+        return await this.repetitionDao.findOne(repetitionId, { relations: ["event", "periode", "jour", "creneau"] });
     }
 
     async delete(repetitionId: number) {
         const repetition = await this.repetitionDao.findOne(repetitionId);
         return await this.repetitionDao.remove(repetition);
+    }
+
+    async findByEventId(eventId: number){
+        const event = await getRepository(EventEntity).findOne(eventId);
+        return await this.repetitionDao.find({where:{event}, relations: ["event", "periode", "jour", "creneau"]})
     }
 
 
@@ -47,9 +55,12 @@ export class RepetitionService {
 
         if (today.isAfter(debut) && today.isBefore(fin)
             && rep.jour.ordre == new Date().getDay()
-            && moment.isAfter(hdebut) && moment.isBefore(hfin)) {
-                return true;
-        } 
+            && moment.isAfter(hdebut) && moment.isBefore(hfin)
+        ) {
+            // console.log("Repeating now");
+            return true;
+        }
+        // console.log("Not Repeating now");
         return false;
     }
 

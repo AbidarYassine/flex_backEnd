@@ -87,14 +87,16 @@ export class EventService {
 
         const result = [];
 
-        events.forEach(event => {
-            event.repetitions.forEach(rep => {
+        for(let i = 0; i < events.length; i++){
+            const repetitions = await this.repetitionService.findByEventId(events[i].id);
+            repetitions.forEach(rep => {
                 if (this.repetitionService.isRepetitionOnNow(rep)) {
-                    result.push(event);
+                    result.push(events[i]);
                 }
             })
-        });
+        }
 
+        // console.log("Result", result);
         return result;
     }
 

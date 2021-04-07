@@ -17,15 +17,15 @@ export class PorteService {
 
     // *** read services ***
     async getAll(): Promise<PortEntity[]> {
-        return await this.porteDao.find();
+        return await this.porteDao.find({relations:['salle']});
     }
 
     async getById(id: number): Promise<PortEntity> {
-        return await this.porteDao.findOne(id);
+        return await this.porteDao.findOne(id, {relations:['salle']});
     }
 
     async getByNom(nom: string): Promise<PortEntity | undefined> {
-        return await this.porteDao.findOne({ nom });
+        return await this.porteDao.findOne({ nom }, {relations:['salle']});
     }
 
     // *** update services ***
