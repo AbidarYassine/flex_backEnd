@@ -39,7 +39,6 @@ export class SpecialEventService {
     }
 
     async findAll() {
-        // return await this.eventDao.find();
         return await this.specialEventDao.find({ relations: ['profiles'] });
     }
 
