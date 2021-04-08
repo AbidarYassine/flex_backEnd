@@ -7,8 +7,8 @@ export class ListePresenceEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({ name: 'date' })
-    date: Date;
+    @Column({ name: 'date', type: "varchar" })
+    date: string;
 
     @ManyToOne(() => EventLogEntity, eventlog => eventlog.listpresences)
     @JoinColumn({ name: "event_log_id", referencedColumnName: '_id' })
@@ -18,6 +18,9 @@ export class ListePresenceEntity extends BaseEntity {
     @ManyToMany(
         type => EtudiantEntity,
         (etudiant) => etudiant.listpresences,
+        {
+            cascade: true,
+        }
     )
     etudiants: EtudiantEntity[];
 

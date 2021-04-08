@@ -39,7 +39,6 @@ export class SpecialEventService {
     }
 
     async findAll() {
-        // return await this.eventDao.find();
         return await this.specialEventDao.find({ relations: ['profiles'] });
     }
 
@@ -51,9 +50,9 @@ export class SpecialEventService {
         return await this.specialEventDao.find({ where: { _nom: Like(`%${nom}%`) }, relations: ['profiles'] });
     }
 
-    async updateEvent(id: number, specialEventDto: SpecialEventDto) {
+    async updateEvent(__id: number, specialEventDto: SpecialEventDto) {
 
-        const specialEvent = await this.specialEventDao.findOne(id);
+        const specialEvent = await this.specialEventDao.findOne(__id);
 
         specialEvent.heureDeb = specialEventDto.heureDeb;
         specialEvent.heureFin = specialEventDto.heureFin;

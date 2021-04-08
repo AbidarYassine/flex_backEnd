@@ -5,14 +5,16 @@ import { ProfilService } from './profil.service';
 import { EventEntity } from './../model/event.entity';
 import { Injectable } from "@nestjs/common";
 import { EventDto } from '../dto/event.dto';
-import { RepetitionDao } from '../dao/repetition.dao';
+import { SalleService } from './salle.service';
+import { RepetitionService } from './repetition.service';
 
 @Injectable()
 export class EventService {
     constructor(
         private profilsService: ProfilService,
-        private repetitionDao: RepetitionDao,
+        private repetitionService: RepetitionService,
         private eventDao: EventDao,
+        private salleService: SalleService,
     ) { }
 
     async createEvent(eventDto: EventDto) {
@@ -28,7 +30,7 @@ export class EventService {
         );
 
         const repetitions = await Promise.all(
-            eventDto.repetitionIds.map(id => this.repetitionDao.findOne(id))
+            eventDto.repetitionIds.map(id => this.repetitionService.findById(id))
         );
 
         event.profiles = profiles;
@@ -44,15 +46,15 @@ export class EventService {
     }
 
     async findById(id: number) {
-        return await this.eventDao.findOne(id, { relations: ['profiles', 'repetitions'] });
+        return await this.eventDao.findOne(id, { relations: ['profiles', 'repetitions', 'eventLogs'] });
     }
 
     async findByNom(nom: string) {
         return await this.eventDao.find({ where: { _nom: Like(`%${nom}%`) }, relations: ['profiles', 'repetitions'] });
     }
 
-    async updateEvent(id: number, eventDto: EventDto) {
-        const event = await this.eventDao.findOne(id);
+    async updateEvent(_id: number, eventDto: EventDto) {
+        const event = await this.eventDao.findOne(_id);
 
         event.nom = eventDto.nom;
         event.desc = eventDto.desc;
@@ -63,7 +65,7 @@ export class EventService {
         );
 
         const repetitions = await Promise.all(
-            eventDto.repetitionIds.map(id => this.repetitionDao.findOne(id))
+            eventDto.repetitionIds.map(id => this.repetitionService.findById(id))
         );
 
         event.profiles = profiles;
@@ -77,4 +79,25 @@ export class EventService {
 
         return await getRepository(EventEntity).remove(event);
     }
+
+    async goingOnEvents(salleId: number): Promise<EventEntity[]> {
+
+        const salle = await this.salleService.getById(salleId);
+        const events = await this.eventDao.find({ where: { salle }, relations: ['profiles', 'repetitions'] });
+
+        const result = [];
+
+        for (let i = 0; i < events.length; i++) {
+            const repetitions = await this.repetitionService.findByEventId(events[i].id);
+            repetitions.forEach(rep => {
+                if (this.repetitionService.isRepetitionOnNow(rep)) {
+                    result.push(events[i]);
+                }
+            })
+        }
+
+        // console.log("Result", result);
+        return result;
+    }
+
 }

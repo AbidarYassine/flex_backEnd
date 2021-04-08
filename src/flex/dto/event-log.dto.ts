@@ -1,11 +1,18 @@
-import { IsBoolean, IsDate, IsDateString, IsNumber } from "class-validator";
+import { IsBoolean, IsDate, IsDateString, IsNumber, IsString } from "class-validator";
 
 export class EventLogDto {
 
-    @IsDateString()
-    readonly date: Date;
+    @IsString()
+    date: string;
     @IsBoolean()
-    readonly done: boolean = false;
+    done: boolean = false;
     @IsNumber()
-    readonly eventId: number;
+    eventId: number;
+
+    setDate(date: string) {
+        this.date = date;
+    }
+    setEventId(id: number) {
+        this.eventId = id;
+    }
 }

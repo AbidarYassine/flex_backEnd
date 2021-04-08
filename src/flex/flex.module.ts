@@ -56,6 +56,9 @@ import { JourDao } from './dao/jour.dao';
 import { JourService } from './services/jour.service';
 //import { JourController } from './controllers/jour.controller';
 
+import { DoorControleService } from './services/door_controle.service';
+import { DoorControleController } from './controllers/door_controle.controller';
+
 
 
 @Module({
@@ -91,6 +94,7 @@ import { JourService } from './services/jour.service';
         PeriodeController,
         SpecialEventController,
         EventLogController,
+        DoorControleController,
         ListePresenceController
 
     ],
@@ -106,8 +110,10 @@ import { JourService } from './services/jour.service';
         EventLogService,
         JourService,
         PeriodeService,
+        SpecialEventService,
+        RepetitionService,
+        DoorControleService,
         ListePresenceService,
-        SpecialEventService
     ]
 })
 export class FlexModule { }

@@ -9,8 +9,8 @@ export class EventLogEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
     _id: number;
 
-    @Column({ name: 'date', type: "timestamp" })
-    date: Date;
+    @Column({ name: 'date', type: "varchar" })
+    date: string;
 
     @Column({ name: 'done', type: 'boolean', default: false })
     done: boolean;

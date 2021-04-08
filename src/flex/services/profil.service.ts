@@ -6,6 +6,7 @@ import { ProfilDao } from './../dao/profil.dao';
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { FiliereService } from './filiere.service';
 import { ProfesseurService } from './professeur.service';
+import { ProfesseurEntity } from '../model/professeur.entity';
 
 @Injectable()
 export class ProfilService {
@@ -14,8 +15,6 @@ export class ProfilService {
         private filiereService: FiliereService,
         private profService: ProfesseurService,
     ) { }
-
-
 
     async saveProfile(profilDto: ProfilDto): Promise<ProfilEntity> {
         const profileFound = await this.loadByLib(profilDto.libelle);
@@ -59,6 +58,20 @@ export class ProfilService {
             }
         }
         return foundProfil;
+    }
+
+    async isProfesseurInProfile(prof: ProfesseurEntity, profileId: number): Promise<boolean> {
+        const profile = await this.findById(profileId);
+        // console.log("Profs", profile.professeurs);
+        let found = false;
+        profile.professeurs.forEach(p =>{
+            if(p.id == prof.id){
+                found = true;
+                return;
+            } 
+        });
+
+        return found;
     }
 
 }

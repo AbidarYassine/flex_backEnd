@@ -8,6 +8,7 @@ import { getRepository } from 'typeorm';
 
 @Controller('specialEvents')
 export class SpecialEventController {
+    
     constructor(
         private specialEventService: SpecialEventService,
     ) { }

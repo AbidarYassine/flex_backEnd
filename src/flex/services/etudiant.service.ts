@@ -28,15 +28,15 @@ export class EtudaintService {
     async getById(id: number): Promise<EtudiantEntity> {
         return await this.etudDao.findOne(id);
     }
-    async getByCne(cne: string): Promise<any> {
-        return this.etudDao.findOne({ cne });
+    async getByCne(_cne: string): Promise<EtudiantEntity> {
+        return await this.etudDao.findOne({ _cne });
     }
     async delete(id: number): Promise<any> {
         const etudaint = await this.getById(id);
         if (!etudaint) {
             return new NotFoundException(`Student not found !`);
         }
-        
+
         return await getRepository(EtudiantEntity).remove(etudaint);
     }
 

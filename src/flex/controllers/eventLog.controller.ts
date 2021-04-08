@@ -14,10 +14,15 @@ export class EventLogController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async saveEventLog(@Body() eventLogDto: EventLogDto): Promise<EventLogEntity> {
-        const event = this.eventService.findById(eventLogDto.eventId);
+        const event = await this.eventService.findById(eventLogDto.eventId);
         if (!event) {
             throw new NotFoundException(`Event not found`);
         }
+        const eventLog = await this.eventLogService.findByDateAndEvent(eventLogDto.date, eventLogDto.eventId);
+        if (eventLog) {
+            throw new NotFoundException(`EventLog already exists`);
+        }
+
         return await this.eventLogService.createEventLog(eventLogDto);
     }
     @Get("/id/:id")
@@ -38,6 +43,14 @@ export class EventLogController {
     @HttpCode(HttpStatus.NO_CONTENT)
     delete(@Param("id") id: number) {
         return this.eventLogService.delete(id);
+    }
+    @Get("date/:date/event-id/:event_id")
+    async findByDate(@Param("date") date: string, @Param("event_id") event_id: number) {
+        const eventLog = await this.eventLogService.findByDateAndEvent(date, event_id);
+        if (!eventLog) {
+            throw new NotFoundException(`event ${event_id} log not found by ${date} !!`);
+        }
+        return eventLog;
     }
 
 }
