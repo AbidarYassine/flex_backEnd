@@ -43,10 +43,10 @@ export class ProfilEntity extends BaseEntity {
     )
     professeurs: ProfesseurEntity[];
 
-    @ManyToMany(()=> EventEntity, event => event.profiles)
+    @ManyToMany(() => EventEntity, event => event.profiles)
     events: EventEntity;
-    
-    @ManyToMany(()=> SpecialEventEntity, specialEvent => specialEvent.profiles)
+
+    @ManyToMany(() => SpecialEventEntity, specialEvent => specialEvent.profiles)
     specialEvents: SpecialEventEntity;
 
 }

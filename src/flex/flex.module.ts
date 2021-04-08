@@ -108,7 +108,6 @@ import { JourService } from './services/jour.service';
         PeriodeService,
         ListePresenceService,
         SpecialEventService
-
     ]
 })
 export class FlexModule { }

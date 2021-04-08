@@ -1,6 +1,7 @@
 import { UserEntity } from './user.entity';
-import { ChildEntity, Column, JoinColumn, ManyToOne } from "typeorm";
+import { ChildEntity, Column, JoinColumn, ManyToMany, ManyToOne } from "typeorm";
 import { FilierEntity } from './filiere.entity';
+import { ListePresenceEntity } from './liste-presence.entity';
 
 @ChildEntity()
 export class EtudiantEntity extends UserEntity {
@@ -17,6 +18,12 @@ export class EtudiantEntity extends UserEntity {
     @ManyToOne(() => FilierEntity, filiere => filiere.etudiants)
     @JoinColumn({ name: "filiere_id", referencedColumnName: '_id' })
     filiere: FilierEntity;
+
+    @ManyToMany(
+        type => ListePresenceEntity,
+        (listpresence) => listpresence.etudiants,
+    )
+    listpresences: ListePresenceEntity[];
 
 
 
