@@ -1,3 +1,4 @@
+import { FilierEntity } from './../model/filiere.entity';
 import { profile } from 'node:console';
 import { getRepository } from 'typeorm';
 import { ProfilEntity } from './../model/profil.entity';
@@ -7,6 +8,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { FiliereService } from './filiere.service';
 import { ProfesseurService } from './professeur.service';
 import { ProfesseurEntity } from '../model/professeur.entity';
+import { EtudaintService } from './etudiant.service';
 
 @Injectable()
 export class ProfilService {
@@ -14,6 +16,7 @@ export class ProfilService {
         private profilDao: ProfilDao,
         private filiereService: FiliereService,
         private profService: ProfesseurService,
+        private etudiantService: EtudaintService,
     ) { }
 
     async saveProfile(profilDto: ProfilDto): Promise<ProfilEntity> {
@@ -60,12 +63,55 @@ export class ProfilService {
         return foundProfil;
     }
 
+    async isUserInProfile(userId: number, profileId: number): Promise<boolean> {
+        const profile = await this.findById(profileId);
+        // console.log("Profs", profile.professeurs);
+        let found = false;
+        profile.professeurs.forEach(p =>{
+            if(p.id == userId){
+                found = true;
+                return;
+            } 
+        });
+        if(found) return found;
+
+        profile.autres.forEach(a =>{
+            if(a.id == userId){
+                found = true;
+                return;
+            } 
+        });
+        if(found) return found;
+        
+        const etudiant = await this.etudiantService.getById(userId);
+        if(etudiant){
+            return await this.isFiliereInProfile(etudiant.filiere, profileId);
+        }
+
+        return found;
+    }
+
+
     async isProfesseurInProfile(prof: ProfesseurEntity, profileId: number): Promise<boolean> {
         const profile = await this.findById(profileId);
         // console.log("Profs", profile.professeurs);
         let found = false;
         profile.professeurs.forEach(p =>{
             if(p.id == prof.id){
+                found = true;
+                return;
+            } 
+        });
+
+        return found;
+    }
+    
+    async isFiliereInProfile(filiere: FilierEntity, profileId: number): Promise<boolean> {
+        const profile = await this.findById(profileId);
+        // console.log("Profs", profile.professeurs);
+        let found = false;
+        profile.filieres.forEach(f => {
+            if(f.id == filiere.id){
                 found = true;
                 return;
             } 

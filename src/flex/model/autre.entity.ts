@@ -1,6 +1,16 @@
+import { ProfilEntity } from './profil.entity';
 import { UserEntity } from './user.entity';
-import { ChildEntity } from "typeorm";
+import { ChildEntity, JoinTable, ManyToMany } from "typeorm";
 
 @ChildEntity()
-export class AutretEntity extends UserEntity {
+export class AutreEntity extends UserEntity {
+    @JoinTable()
+    @ManyToMany(
+        type => (ProfilEntity),
+        profil => profil.professeurs,
+        {
+            cascade: true,
+        }
+    )
+    profils: ProfilEntity[];
 }

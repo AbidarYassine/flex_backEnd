@@ -12,7 +12,7 @@ export class EtudiantController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async saveEtud(@Body() dtoEtudiant: EtudiantDto) {
-        const etudFound = this.getByCne(dtoEtudiant.cne);
+        const etudFound = await this.getByCne(dtoEtudiant.cne);
         
         const filiere = await getRepository(FilierEntity).findOne(dtoEtudiant.filierId);
         
@@ -52,7 +52,7 @@ export class EtudiantController {
     
     @Get('cne/:cne')
     @HttpCode(HttpStatus.OK)
-    async getByCne(@Param('cne') cne: string): Promise<EtudiantEntity[]> {
+    async getByCne(@Param('cne') cne: string): Promise<EtudiantEntity> {
         return await this.etuService.getByCne(cne);
     }
 }

@@ -1,3 +1,8 @@
+import { DateUtils } from './../utils/dateUtils';
+import { TimeUtils } from './../utils/timeUtils';
+import { LocalTime } from '@js-joda/core';
+import { LocalDate } from '@js-joda/core';
+import { SalleService } from './salle.service';
 import { Injectable } from "@nestjs/common";
 import { getRepository, Like } from "typeorm";
 
@@ -13,7 +18,9 @@ export class SpecialEventService {
 
     constructor(
         private specialEventDao: SpecialEventDao,
-        private profilsService: ProfilService) { }
+        private profilsService: ProfilService,
+        private salleService: SalleService,
+    ) { }
 
     async createEvent(specialEventDto: SpecialEventDto) {
 
@@ -77,5 +84,35 @@ export class SpecialEventService {
         return await getRepository(SpecialEventEntity).remove(specialEvent);
     }
 
+    async goingOnSpecialEvents(salleId: number): Promise<SpecialEventEntity[]> {
+
+        const salle = await this.salleService.getById(salleId);
+        const specialEvents = await this.specialEventDao.find({ where: { salle, _activated:true }, relations: ['profiles'] });
+
+        const result = [];
+
+        for(let i = 0; i < specialEvents.length; i++){
+            const { date, heureDeb, heureFin } = specialEvents[i];
+
+            // Date Fromat jj/mm/aaaa
+            const today = LocalDate.now();
+            const moment = LocalTime.now();
+
+            const hdebut = TimeUtils.stringToLocalTime(heureDeb).minusMinutes(30);
+            const hfin = TimeUtils.stringToLocalTime(heureFin);
+
+            const eventDate = DateUtils.stringtoLocalDate(date);
+
+            if(
+                today.isEqual(eventDate)
+                && moment.isAfter(hdebut) && moment.isBefore(hfin)
+            ){
+                result.push(specialEvents[i]);
+            }
+        }
+
+        // console.log("Result", result);
+        return result;
+    }
 
 }

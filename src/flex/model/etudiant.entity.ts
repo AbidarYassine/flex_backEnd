@@ -18,7 +18,4 @@ export class EtudiantEntity extends UserEntity {
     @JoinColumn({ name: "filiere_id", referencedColumnName: '_id' })
     filiere: FilierEntity;
 
-
-
-
 }
