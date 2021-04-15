@@ -6,9 +6,11 @@ import { ListePresenceDto } from '../dto/liste-presence.dto';
 import { EventService } from '../services/event.service';
 import { Get } from '@nestjs/common';
 import { CreateListPresenceDto } from '../dto/createListPresence.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller("liste-presences")
+@ApiTags("liste-presences")
 export class ListePresenceController {
     constructor(
         private listPresService: ListePresenceService,

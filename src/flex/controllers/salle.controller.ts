@@ -1,11 +1,13 @@
 import { Controller, Post, HttpCode, HttpStatus, Body, Get, Param, Put, Delete, HttpException } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { SalleDto } from "../dto/salle.dto";
 import { SalleService } from "../services/salle.service";
 
 @Controller('salles')
+@ApiTags("salles")
 export class SalleController {
 
-    constructor(private salleService: SalleService) {}
+    constructor(private salleService: SalleService) { }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
@@ -16,7 +18,7 @@ export class SalleController {
         }
         return await this.salleService.save(salleDto);
     }
-    
+
     @Get()
     @HttpCode(HttpStatus.OK)
     async getAll(): Promise<SalleDto[]> {

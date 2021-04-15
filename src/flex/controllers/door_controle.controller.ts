@@ -1,10 +1,12 @@
 import { EtudaintService } from './../services/etudiant.service';
 import { Controller, Get, HttpCode, HttpStatus, NotFoundException, Param } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { DoorControleService } from "../services/door_controle.service";
 import { PorteService } from "../services/porte.service";
 import { ProfesseurService } from "../services/professeur.service";
 
 @Controller('open-door')
+@ApiTags("open-door")
 export class DoorControleController {
 
     constructor(
@@ -23,10 +25,10 @@ export class DoorControleController {
             throw new NotFoundException(`Door not found !`);
         }
 
-        if(!await this.profService.getByEmail(profEmail)) {
+        if (!await this.profService.getByEmail(profEmail)) {
             throw new NotFoundException(`Prof not found !`);
         }
-        
+
         return await this.dcService.grantAccessForProf(profEmail, doorId);
     }
     

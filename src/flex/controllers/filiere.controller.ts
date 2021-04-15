@@ -2,8 +2,10 @@ import { FilierEntity } from '../model/filiere.entity';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
 import { CreateFiliereDto } from "../dto/createFiliereDto";
 import { FiliereService } from "../services/filiere.service";
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('filieres')
+@ApiTags("filieres")
 export class FiliereControlller {
     constructor(private filierService: FiliereService) { }
 
