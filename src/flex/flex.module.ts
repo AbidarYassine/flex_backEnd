@@ -114,8 +114,6 @@ import { DoorControleController } from './controllers/door_controle.controller';
         RepetitionService,
         DoorControleService,
         ListePresenceService,
-        SpecialEventService,
-
     ]
 })
 export class FlexModule { }

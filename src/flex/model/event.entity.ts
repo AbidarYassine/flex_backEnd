@@ -8,7 +8,7 @@ import { Column, Entity, ManyToOne, JoinColumn, OneToMany, OneToOne, ManyToMany,
 import { EventBaseEntity } from './event_baseentity';
 
 @Entity('events')
-export class EventEntity extends EventBaseEntity{
+export class EventEntity extends EventBaseEntity {
 
     @ManyToOne(() => SalleEntity, salle => salle.events)
     @JoinColumn({ name: "salle_id", referencedColumnName: '_id' })
@@ -22,6 +22,6 @@ export class EventEntity extends EventBaseEntity{
     repetitions: RepetitionEntity[];
 
     @JoinTable()
-    @ManyToMany(()=> ProfilEntity, profile => profile.events)
+    @ManyToMany(() => ProfilEntity, profile => profile.events)
     profiles: ProfilEntity[];
 }

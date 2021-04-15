@@ -30,5 +30,13 @@ export class EventLogService {
         const event = await this.findbyId(id);
         return await getRepository(EventLogEntity).remove(event);
     }
+    async findByDateAndEvent(date: string, event_id: number): Promise<EventLogEntity> {
+        const existingEvent = await getRepository(EventLogEntity)
+            .createQueryBuilder("event-log")
+            .where("event-log.date = :date AND event-log.event_id=:event_id", { date: date, event_id: event_id })
+            .getOne();
+        // existingEvent
+        return existingEvent;
+    }
 
 }

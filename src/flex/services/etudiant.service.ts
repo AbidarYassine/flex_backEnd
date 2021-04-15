@@ -41,7 +41,7 @@ export class EtudaintService {
         if (!etudaint) {
             return new NotFoundException(`Student not found !`);
         }
-        
+
         return await getRepository(EtudiantEntity).remove(etudaint);
     }
 

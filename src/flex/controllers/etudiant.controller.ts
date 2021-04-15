@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { EtudiantEntity } from './../model/etudiant.entity';
 import { Controller, Post, Get, Body, Param, Put, Delete, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
 import { EtudiantDto } from '../dto/etudiant.dto';
@@ -15,11 +16,10 @@ export class EtudiantController {
         const etudFound = await this.getByCne(dtoEtudiant.cne);
         
         const filiere = await getRepository(FilierEntity).findOne(dtoEtudiant.filierId);
-        
+
         if (!filiere) {
             throw new HttpException(`Filiere not found !`, HttpStatus.UNPROCESSABLE_ENTITY);
         }
-
         if (etudFound) {
             throw new HttpException(`Student with ${dtoEtudiant.cne} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -49,10 +49,14 @@ export class EtudiantController {
     async getById(@Param('id') id: number): Promise<EtudiantEntity> {
         return await this.etuService.getById(id);
     }
-    
+
     @Get('cne/:cne')
     @HttpCode(HttpStatus.OK)
     async getByCne(@Param('cne') cne: string): Promise<EtudiantEntity> {
-        return await this.etuService.getByCne(cne);
+        const etudaint = await this.etuService.getByCne(cne);
+        if (!etudaint) {
+            throw new NotFoundException("Etudait not found");
+        }
+        return etudaint;
     }
 }

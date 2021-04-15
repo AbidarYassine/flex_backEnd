@@ -46,7 +46,7 @@ export class EventService {
     }
 
     async findById(id: number) {
-        return await this.eventDao.findOne(id, { relations: ['profiles', 'repetitions'] });
+        return await this.eventDao.findOne(id, { relations: ['profiles', 'repetitions', 'eventLogs'] });
     }
 
     async findByNom(nom: string) {
@@ -87,7 +87,7 @@ export class EventService {
 
         const result = [];
 
-        for(let i = 0; i < events.length; i++){
+        for (let i = 0; i < events.length; i++) {
             const repetitions = await this.repetitionService.findByEventId(events[i].id);
             repetitions.forEach(rep => {
                 if (this.repetitionService.isRepetitionOnNow(rep)) {
