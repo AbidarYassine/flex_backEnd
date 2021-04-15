@@ -5,10 +5,12 @@ import { SpecialEventDto } from './../dto/special_event.dto';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { SpecialEventDao } from '../dao/special-event.dao';
 import { getRepository } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('specialEvents')
+@ApiTags("specialEvents")
 export class SpecialEventController {
-    
+
     constructor(
         private specialEventService: SpecialEventService,
     ) { }

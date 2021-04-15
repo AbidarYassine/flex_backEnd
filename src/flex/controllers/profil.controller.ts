@@ -3,8 +3,10 @@ import { ProfilEntity } from './../model/profil.entity';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
 import { ProfilService } from "../services/profil.service";
 import { ProfilDto } from '../dto/profil.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('profils')
+@ApiTags("profils")
 export class ProfilController {
     constructor(private profilService: ProfilService) { }
 

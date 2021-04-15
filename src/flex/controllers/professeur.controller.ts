@@ -1,9 +1,11 @@
 import { Controller, Post, Get, Body, Param, Put, Delete, Query, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ProfesseurDto } from '../dto/professeur.dto';
 import { ProfesseurEntity } from '../model/professeur.entity';
 import { ProfesseurService } from '../services/professeur.service';
 
 @Controller('professeurs')
+@ApiTags("professeurs")
 export class ProfesseurController {
     constructor(private prService: ProfesseurService) { }
     @Post()
@@ -22,7 +24,7 @@ export class ProfesseurController {
     async editProf(@Body() dtoProfes: ProfesseurDto, @Param('id') id: number) {
         return await this.prService.update(dtoProfes, id);
     }
-    
+
     @Delete(':id')
     @HttpCode(HttpStatus.ACCEPTED)
     async delete(@Param('id') id: number) {
@@ -40,7 +42,7 @@ export class ProfesseurController {
     async getById(@Param('id') id: number): Promise<ProfesseurEntity> {
         return await this.prService.getById(id);
     }
-    
+
     @Get('email/:email')
     @HttpCode(HttpStatus.OK)
     async getByEmail(@Param('email') email: string): Promise<ProfesseurEntity[]> {

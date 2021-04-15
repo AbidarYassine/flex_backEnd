@@ -5,8 +5,10 @@ import { EtudiantDto } from '../dto/etudiant.dto';
 import { EtudaintService } from '../services/etudiant.service';
 import { FilierEntity } from '../model/filiere.entity';
 import { getRepository } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('etudiants')
+@ApiTags("etudiants")
 export class EtudiantController {
     constructor(private etuService: EtudaintService) { }
 

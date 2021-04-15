@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { PorteDto } from "../dto/porte.dto";
 import { PortEntity } from "../model/porte.entity";
 import { PorteService } from "../services/porte.service";
 
 @Controller('portes')
+@ApiTags("portes")
 export class PorteController {
 
     constructor(private porteService: PorteService) { }

@@ -3,8 +3,10 @@ import { EventService } from './../services/event.service';
 import { EventLogDto } from './../dto/event-log.dto';
 import { EventLogService } from './../services/event.log.service';
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Post } from "@nestjs/common";
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller("event-log")
+@ApiTags("event-log")
 export class EventLogController {
     constructor(
         private eventLogService: EventLogService,
