@@ -12,16 +12,18 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
     private async validate(profData: LoginProfDto): Promise<ProfesseurEntity> {
-        return await this.profAuthService.findByEmail(profData.email);
+        return await this.profAuthService.findByEmailAndPassword(profData.email, profData.password);
     }
 
     public async login(prof: LoginProfDto): Promise<any | { status: number }> {
+        // let profEnti = new ProfesseurEntity();
+        // profEnti = await this.validate(prof);
         return this.validate(prof).then((profData) => {
             console.log(profData)
             if (!profData) {
                 return {
                     status: 404,
-                    message: "Prof not found",
+                    message: "Email ou mot de passe incorrect",
                 };
             }
             if (!profData.admin) {

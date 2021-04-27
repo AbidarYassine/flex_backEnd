@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProfesseurDto } from 'src/flex/dto/createProfesseur.dto';
 import { ProfesseurEntity } from 'src/flex/model/professeur.entity';
 import { Repository } from 'typeorm';
+import { hash, compare } from 'bcrypt'
 
 @Injectable()
 export class ProfAuthService {
@@ -12,12 +13,17 @@ export class ProfAuthService {
         private profeRepo: Repository<ProfesseurEntity>,
     ) { }
 
-    async findByEmail(email: string): Promise<ProfesseurEntity> {
-        return await this.profeRepo.findOne({
+    async findByEmailAndPassword(email: string, password: string): Promise<ProfesseurEntity> {
+        let prof = new ProfesseurEntity();
+        prof = await this.profeRepo.findOne({
             where: {
                 _email: email,
             }
         });
+        console.log("prof " + prof);
+        if (await compare(password, prof.password)) return prof;
+        return null;
+
     }
 
     async findById(id: number): Promise<ProfesseurEntity> {
@@ -35,7 +41,7 @@ export class ProfAuthService {
         prof.prenom = profDto.prenom;
         prof.email = profDto.email;
         prof.admin = profDto.admin;
-        prof.password = profDto.password;
+        prof.password = await hash(profDto.password, 10);
         return await getRepository(ProfesseurEntity).save(prof);
     }
 }

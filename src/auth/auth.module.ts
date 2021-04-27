@@ -5,6 +5,7 @@ import { ProfAuthService } from './prof.auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { EncryptionService } from './encryption.service';
 
 @Module({
     imports: [

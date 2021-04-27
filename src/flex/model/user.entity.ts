@@ -19,10 +19,10 @@ export class UserEntity extends BaseEntity {
     @Column({ name: "email", unique: true })
     _email: string;
 
-    @BeforeInsert()
-    hashPassword() {
-        this._password = crypto.createHmac('sha256', this._password).digest('hex');
-    }
+    // @BeforeInsert()
+    // hashPassword() {
+    //     this._password = crypto.createHmac('sha256', this._password).digest('hex');
+    // }
 
 
     get id() {
