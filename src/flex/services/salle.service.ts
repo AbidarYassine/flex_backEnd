@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException, HttpException } from "@nestjs/common";
 import { request } from "express";
+import { exception } from "node:console";
 import { getRepository } from "typeorm";
 import { SalleDao } from "../dao/salle.dao";
 import { SalleDto } from "../dto/salle.dto";
@@ -32,9 +33,14 @@ export class SalleService {
     // *** update services ***
     async update(salleDto: SalleDto, id:number): Promise<any> {
         const salle = await this.getById(id);
+        const salleNom = await this.getByNom(salleDto.nom);
         if(!salle) {
             request.statusCode = 404;
             return new NotFoundException(`Room not found !`);
+        }
+        if(salleNom) {
+            request.statusCode = 401;
+            return new HttpException(`Room with the same name already exists !`, 401);
         }
         salle.nom = salleDto.nom;
         await getRepository(SalleEntity).save(salle);
@@ -48,7 +54,7 @@ export class SalleService {
             request.statusCode = 404;
             return new NotFoundException(`Room not found !`);
         }
-        await getRepository(SalleEntity).remove(salle);
+        return await getRepository(SalleEntity).remove(salle);
     }
 
 }

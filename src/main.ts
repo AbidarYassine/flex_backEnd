@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,// si tu as ajoueter un attribut dans la requete qui n'existe pas dans dto il va pas l'accepter (sans error)
     forbidNonWhitelisted: true,// with error
