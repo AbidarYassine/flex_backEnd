@@ -8,8 +8,8 @@ import { EventBaseEntity } from './event_baseentity';
 
 @Entity('sepecial_events')
 export class SpecialEventEntity extends EventBaseEntity {
-    @Column({ name: 'date', type: 'date' })
-    _date: Date;
+    @Column({name:'date', type: 'varchar'})
+    date: string;
 
     @Column({ name: 'heure_deb', type: 'varchar' })
     _heureDeb: string;
@@ -34,14 +34,6 @@ export class SpecialEventEntity extends EventBaseEntity {
 
     set heureFin(heure: string) {
         this._heureFin = heure;
-    }
-
-    get date() {
-        return this._date
-    }
-
-    set date(date: Date) {
-        this._date = date;
     }
 
     get activated() {

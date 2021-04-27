@@ -1,3 +1,4 @@
+import { AutreEntity } from './autre.entity';
 import { SpecialEventEntity } from './special_event.entity';
 import { EventEntity } from './event.entity';
 import { FilierEntity } from './filiere.entity';
@@ -43,6 +44,13 @@ export class ProfilEntity extends BaseEntity {
     )
     professeurs: ProfesseurEntity[];
 
+    @ManyToMany(
+        type => AutreEntity,
+        (autre) => autre.profils,
+    )
+    autres: AutreEntity[];
+
+    @ManyToMany(()=> EventEntity, event => event.profiles)
     @ManyToMany(() => EventEntity, event => event.profiles)
     events: EventEntity;
 

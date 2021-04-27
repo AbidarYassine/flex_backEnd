@@ -4,7 +4,7 @@ import { EventBaseDto } from './event_base.dto';
 export class SpecialEventDto extends EventBaseDto {
 
     @IsDate()
-    readonly date: Date;
+    readonly date: string;
 
     @IsString()
     readonly heureDeb: string;

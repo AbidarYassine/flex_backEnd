@@ -15,9 +15,8 @@ export class EtudiantController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async saveEtud(@Body() dtoEtudiant: EtudiantDto) {
-        const etudFound = await this.etuService.getByCne(dtoEtudiant.cne);
-
-        console.log(etudFound);
+        const etudFound = await this.getByCne(dtoEtudiant.cne);
+        
         const filiere = await getRepository(FilierEntity).findOne(dtoEtudiant.filierId);
 
         if (!filiere) {

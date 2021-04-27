@@ -47,7 +47,7 @@ export class RepetitionService {
         const today = LocalDate.now();
         const moment = LocalTime.now();
 
-        const hdebut = TimeUtils.stringToLocalTime(rep.creneau.heureDeb);
+        const hdebut = TimeUtils.stringToLocalTime(rep.creneau.heureDeb).minusMinutes(30);
         const hfin = TimeUtils.stringToLocalTime(rep.creneau.heureFin);
 
         const debut = DateUtils.stringtoLocalDate(dateDeb);

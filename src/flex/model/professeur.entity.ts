@@ -14,6 +14,7 @@ export class ProfesseurEntity extends UserEntity {
     set admin(admin: boolean) {
         this._admin = admin;
     }
+    
     @JoinTable()
     @ManyToMany(
         type => (ProfilEntity),
