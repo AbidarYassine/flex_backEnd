@@ -4,10 +4,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { typeOrmOption } from './config/typeorm.config';
 import { FlexModule } from './flex/flex.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmOption), FlexModule],
+  imports: [TypeOrmModule.forRoot(typeOrmOption), FlexModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

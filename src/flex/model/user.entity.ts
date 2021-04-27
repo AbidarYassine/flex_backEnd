@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
-
+import { BaseEntity, BeforeInsert, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
+import * as crypto from 'crypto';
 @Entity('users')
 @TableInheritance({ column: { type: "varchar", name: "type" } })
 export class UserEntity extends BaseEntity {
@@ -13,10 +13,23 @@ export class UserEntity extends BaseEntity {
     @Column({ name: 'prenom', type: 'varchar', length: 50 })
     _prenom: string;
 
+    @Column({ name: 'password', type: 'varchar', default: 'NULL' })
+    _password: string;
+
     @Column({ name: "email", unique: true })
     _email: string;
+
+    @BeforeInsert()
+    hashPassword() {
+        this._password = crypto.createHmac('sha256', this._password).digest('hex');
+    }
+
+
     get id() {
         return this._id;
+    }
+    get password() {
+        return this._password;
     }
     get nom() {
         return this._nom;
@@ -36,6 +49,9 @@ export class UserEntity extends BaseEntity {
     }
     set email(email: string) {
         this._email = email;
+    }
+    set password(password: string) {
+        this._password = password;
     }
 
 }
