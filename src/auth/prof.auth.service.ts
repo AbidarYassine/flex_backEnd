@@ -15,7 +15,7 @@ export class ProfAuthService {
     async findByEmail(email: string): Promise<ProfesseurEntity> {
         return await this.profeRepo.findOne({
             where: {
-                _email: email,
+                email: email,
             }
         });
     }

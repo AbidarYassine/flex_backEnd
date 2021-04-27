@@ -31,7 +31,7 @@ export class AuthService {
                 };
             }
 
-            let payload = `${profData._email}${profData.id}`;
+            let payload = `${profData.email}${profData.id}`;
             const accessToken = this.jwtService.sign(payload);
 
             return {

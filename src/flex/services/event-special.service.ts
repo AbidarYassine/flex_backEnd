@@ -54,7 +54,7 @@ export class SpecialEventService {
     }
 
     async findByNom(nom: string) {
-        return await this.specialEventDao.find({ where: { _nom: Like(`%${nom}%`) }, relations: ['profiles'] });
+        return await this.specialEventDao.find({ where: { nom: Like(`%${nom}%`) }, relations: ['profiles'] });
     }
 
     async updateEvent(__id: number, specialEventDto: SpecialEventDto) {
@@ -87,7 +87,7 @@ export class SpecialEventService {
     async goingOnSpecialEvents(salleId: number): Promise<SpecialEventEntity[]> {
 
         const salle = await this.salleService.getById(salleId);
-        const specialEvents = await this.specialEventDao.find({ where: { salle, _activated:true }, relations: ['profiles'] });
+        const specialEvents = await this.specialEventDao.find({ where: { salle, activated:true }, relations: ['profiles'] });
 
         const result = [];
 

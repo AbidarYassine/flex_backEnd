@@ -7,7 +7,7 @@ import { ListePresenceEntity } from './liste-presence.entity';
 @Entity("event-log")
 export class EventLogEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
-    _id: number;
+    id: number;
 
     @Column({ name: 'date', type: "varchar" })
     date: string;
@@ -16,7 +16,7 @@ export class EventLogEntity extends BaseEntity {
     done: boolean;
 
     @ManyToOne(type => EventEntity, event => event.eventLogs)
-    @JoinColumn({ name: "event_id", referencedColumnName: '_id' })
+    @JoinColumn({ name: "event_id", referencedColumnName: 'id' })
     event: EventEntity;
 
     @OneToMany(() => ListePresenceEntity, listPresence => listPresence.eventlog)

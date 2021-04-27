@@ -9,28 +9,12 @@ import { ProfesseurEntity } from './professeur.entity';
 export class ProfilEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn({ name: 'id' })
-    _id: number;
+    id: number;
     @Column({ name: 'libelle', type: 'varchar', length: 50, unique: true })
-    _libelle: string;
+    libelle: string;
     @Column({ name: 'open' })
-    _open: boolean;
+    open: boolean;
 
-
-    get open() {
-        return this._open;
-    }
-    get libelle() {
-        return this._libelle;
-    }
-    get id() {
-        return this._id;
-    }
-    set open(open: boolean) {
-        this._open = open;
-    }
-    set libelle(lib: string) {
-        this._libelle = lib;
-    }
 
     @ManyToMany(
         type => FilierEntity,

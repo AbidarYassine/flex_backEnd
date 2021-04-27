@@ -11,7 +11,7 @@ import { EventBaseEntity } from './event_baseentity';
 export class EventEntity extends EventBaseEntity {
 
     @ManyToOne(() => SalleEntity, salle => salle.events)
-    @JoinColumn({ name: "salle_id", referencedColumnName: '_id' })
+    @JoinColumn({ name: "salle_id", referencedColumnName: 'id' })
     salle: SalleEntity;
 
     @OneToMany(() => EventLogEntity, eventLog => eventLog.event)

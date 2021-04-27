@@ -24,11 +24,11 @@ export class FiliereService {
         return await this.filierDao.save(filiere);
     }
 
-    async findByNom(_nom: string, throwException: boolean = false): Promise<FilierEntity> {
-        const foundFilere = await getRepository(FilierEntity).findOne({ _nom }, { relations: ['profils'] });
+    async findByNom(nom: string, throwException: boolean = false): Promise<FilierEntity> {
+        const foundFilere = await getRepository(FilierEntity).findOne({ nom }, { relations: ['profils'] });
         if (throwException) {
             if (!foundFilere) {
-                throw new HttpException(`the branch '${_nom}' not found`, HttpStatus.BAD_REQUEST);
+                throw new HttpException(`the branch '${nom}' not found`, HttpStatus.BAD_REQUEST);
             }
         }
 
@@ -37,7 +37,7 @@ export class FiliereService {
     async preloadByNom(nom: string): Promise<FilierEntity> {
         const existingFil = await getRepository(FilierEntity)
             .createQueryBuilder("filiere")
-            .where("filiere.nom = :nom", { nom: nom })
+            .where("filiere.nom = :nom", { nom })
             .getOne();
         console.log(existingFil);
         if (existingFil) {
@@ -45,7 +45,7 @@ export class FiliereService {
         }
         throw new HttpException(` ${nom} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);
     }
-    
+
     async getAll(): Promise<FilierEntity[]> {
         return await this.filierDao.find({ relations: ['profils'] });
     }
