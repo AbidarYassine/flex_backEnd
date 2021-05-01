@@ -15,6 +15,29 @@ export class EtudiantEntity extends UserEntity {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @ManyToOne(() => FilierEntity, filiere => filiere.etudiants)
     @JoinColumn({ name: "filiere_id", referencedColumnName: '_id' })
     filiere: FilierEntity;
