@@ -13,7 +13,7 @@ export class UserEntity extends BaseEntity {
     @Column({ name: 'prenom', type: 'varchar', length: 50 })
     prenom: string;
 
-    @Column({ name: 'password', type: 'varchar', default: 'NULL' })
+    @Column({ name: 'password', type: 'varchar', default: 'NULL', nullable: true })
     password: string;
 
     @Column({ name: "email", unique: true })
@@ -21,7 +21,7 @@ export class UserEntity extends BaseEntity {
 
     @BeforeInsert()
     hashPassword() {
-        this.password = crypto.createHmac('sha256', this.password).digest('hex');
+        this.password = this.password ? crypto.createHmac('sha256', this.password).digest('hex') : null;
     }
 
 }
