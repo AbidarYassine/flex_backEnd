@@ -6,13 +6,7 @@ import { ListePresenceEntity } from './liste-presence.entity';
 @ChildEntity()
 export class EtudiantEntity extends UserEntity {
     @Column({ name: 'cne' })
-    _cne: string;
-    get cne() {
-        return this._cne;
-    }
-    set cne(cne: string) {
-        this._cne = cne;
-    }
+    cne: string;
 
 
 
@@ -39,7 +33,7 @@ export class EtudiantEntity extends UserEntity {
 
 
     @ManyToOne(() => FilierEntity, filiere => filiere.etudiants)
-    @JoinColumn({ name: "filiere_id", referencedColumnName: '_id' })
+    @JoinColumn({ name: "filiere_id", referencedColumnName: 'id' })
     filiere: FilierEntity;
 
     @ManyToMany(

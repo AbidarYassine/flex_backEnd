@@ -44,8 +44,8 @@ export class ProfesseurService {
         return await getRepository(ProfesseurEntity).findOne(id, { relations: ['profils'] });
     }
 
-    async getByEmail(_email: string): Promise<any> {
-        const foundProf = getRepository(ProfesseurEntity).findOne({ _email }, { relations: ['profils'] });
+    async getByEmail(email: string): Promise<any> {
+        const foundProf = getRepository(ProfesseurEntity).findOne({ email }, { relations: ['profils'] });
         if (!foundProf) {
             throw new NotFoundException(`Professeur not found !`);
         }

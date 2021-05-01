@@ -5,16 +5,8 @@ import { ProfilEntity } from './profil.entity';
 @ChildEntity()
 export class ProfesseurEntity extends UserEntity {
     @Column({ name: 'admin', type: 'boolean', default: false })
-    _admin: boolean;
+    admin: boolean;
 
-    get admin() {
-        return this._admin;
-    }
-
-    set admin(admin: boolean) {
-        this._admin = admin;
-    }
-    
     @JoinTable()
     @ManyToMany(
         type => (ProfilEntity),

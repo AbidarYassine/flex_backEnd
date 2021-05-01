@@ -62,7 +62,7 @@ export class ListePresenceService {
             eventLogDto.done = false;
             eventLog = await this.eventLogService.createEventLog(eventLogDto);
         }
-        let listPresence = await this.getByDateAndEventLog(date, eventLog._id);
+        let listPresence = await this.getByDateAndEventLog(date, eventLog.id);
         if (!listPresence) {
             const listpres = new ListePresenceEntity();
             listpres.date = date;

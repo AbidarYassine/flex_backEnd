@@ -5,34 +5,16 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 't
 @Entity('jours')
 export class JourEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
-    _id: number;
+    id: number;
 
     @Column({ name: 'ordre' })
-    _ordre: number;
+    ordre: number;
 
     @Column({ name: 'nom', type: 'varchar', length: 20 })
-    _nom: string;
+    nom: string;
 
 
     @OneToMany(() => RepetitionEntity, repetition => repetition.jour)
     repetitions: RepetitionEntity[];
 
-
-
-    get id() {
-        return this._id;
-    }
-    get nom() {
-        return this._nom;
-    }
-    get ordre() {
-        return this._ordre;
-    }
-
-    set nom(nom: string) {
-        this._nom = nom;
-    }
-    set ordre(ordre: number) {
-        this._ordre = ordre;
-    }
 }

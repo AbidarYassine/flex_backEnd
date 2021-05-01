@@ -26,9 +26,9 @@ export class DoorControleService {
         const prof = await this.professeurService.getByEmail(profEmail);
 
         if(await this.grantAccessForSpecialEvent(profEmail, doorId)) return true;
-        
+
         // chercher les evenements en cours
-        const events = await this.eventService.goingOnEvents(door.salle.id);        
+        const events = await this.eventService.goingOnEvents(door.salle.id);
 
         if(events.length == 0) return false;
 
@@ -41,8 +41,8 @@ export class DoorControleService {
 
         return false;
     }
-    
-    
+
+
     async grantAccessForEtudiant(cne: string, doorId: number): Promise<Boolean> {
 
         const door = await this.porteService.getById(doorId);
@@ -51,7 +51,7 @@ export class DoorControleService {
         if(await this.grantAccessForSpecialEvent(etudiant.email, doorId)) return true;
 
         // chercher les evenements en cours
-        const events = await this.eventService.goingOnEvents(door.salle.id);        
+        const events = await this.eventService.goingOnEvents(door.salle.id);
 
         if(events.length == 0) return false;
 
@@ -73,20 +73,20 @@ export class DoorControleService {
         const door = await this.porteService.getById(doorId);
 
         const prof = await this.professeurService.getByEmail(userEmail);
-        
+
         let user = null;
 
         if(!prof){
             const etudiant = await this.etudiantService.getByEmail(userEmail);
 
             if(!etudiant) {
-                const autre = await getRepository(AutreEntity).findOne({ _email:userEmail });
+                const autre = await getRepository(AutreEntity).findOne({ email:userEmail });
 
                 if(!autre) return false;
                 else user = autre;
             }
             else user = etudiant;
-            
+
         }
         else user = prof;
 
@@ -103,7 +103,7 @@ export class DoorControleService {
         }
 
         return false;
-         
+
     }
 
 }

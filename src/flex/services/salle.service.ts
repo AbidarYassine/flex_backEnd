@@ -26,8 +26,8 @@ export class SalleService {
         return await this.salleDao.findOne(id);
     }
 
-    async getByNom(_nom: string): Promise<SalleEntity | undefined> {
-        return await this.salleDao.findOne({ _nom });
+    async getByNom(nom: string): Promise<SalleEntity | undefined> {
+        return await this.salleDao.findOne({ nom });
     }
 
     // *** update services ***

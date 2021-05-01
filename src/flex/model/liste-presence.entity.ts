@@ -5,13 +5,13 @@ import { EventLogEntity } from "./event-log.entity";
 @Entity("listepresences")
 export class ListePresenceEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
-    _id: number;
+    id: number;
 
     @Column({ name: 'date', type: "varchar" })
     date: string;
 
     @ManyToOne(() => EventLogEntity, eventlog => eventlog.listpresences)
-    @JoinColumn({ name: "event_log_id", referencedColumnName: '_id' })
+    @JoinColumn({ name: "event_log_id", referencedColumnName: 'id' })
     eventlog: EventLogEntity;
 
     @JoinTable()

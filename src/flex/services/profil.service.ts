@@ -53,11 +53,11 @@ export class ProfilService {
     async findById(id: number): Promise<ProfilEntity> {
         return await this.profilDao.findOne(id, { relations: ['filieres', 'professeurs'] });
     }
-    async loadByLib(_libelle: string, throwException: boolean = false): Promise<ProfilEntity> {
-        const foundProfil = await getRepository(ProfilEntity).findOne({ _libelle }, { relations: ['filieres', 'professeurs'] });
+    async loadByLib(libelle: string, throwException: boolean = false): Promise<ProfilEntity> {
+        const foundProfil = await getRepository(ProfilEntity).findOne({ libelle }, { relations: ['filieres', 'professeurs'] });
         if (throwException) {
             if (!foundProfil) {
-                throw new HttpException(`this branch '${_libelle}' not found`, HttpStatus.BAD_REQUEST);
+                throw new HttpException(`this branch '${libelle}' not found`, HttpStatus.BAD_REQUEST);
             }
         }
         return foundProfil;
@@ -71,7 +71,7 @@ export class ProfilService {
             if(p.id == userId){
                 found = true;
                 return;
-            } 
+            }
         });
         if(found) return found;
 
@@ -79,10 +79,10 @@ export class ProfilService {
             if(a.id == userId){
                 found = true;
                 return;
-            } 
+            }
         });
         if(found) return found;
-        
+
         const etudiant = await this.etudiantService.getById(userId);
         if(etudiant){
             return await this.isFiliereInProfile(etudiant.filiere, profileId);
@@ -100,12 +100,12 @@ export class ProfilService {
             if(p.id == prof.id){
                 found = true;
                 return;
-            } 
+            }
         });
 
         return found;
     }
-    
+
     async isFiliereInProfile(filiere: FilierEntity, profileId: number): Promise<boolean> {
         const profile = await this.findById(profileId);
         // console.log("Profs", profile.professeurs);
@@ -114,7 +114,7 @@ export class ProfilService {
             if(f.id == filiere.id){
                 found = true;
                 return;
-            } 
+            }
         });
 
         return found;

@@ -12,40 +12,17 @@ export class SpecialEventEntity extends EventBaseEntity {
     date: string;
 
     @Column({ name: 'heure_deb', type: 'varchar' })
-    _heureDeb: string;
+    heureDeb: string;
 
     @Column({ name: 'heure_fin', type: 'varchar' })
-    _heureFin: string;
+    heureFin: string;
 
     @Column({ name: 'activated', type: 'boolean', default: false })
-    _activated: boolean;
+    activated: boolean;
 
-    get heureDeb() {
-        return this._heureDeb;
-    }
-
-    get heureFin() {
-        return this._heureFin;
-    }
-
-    set heureDeb(heure: string) {
-        this._heureDeb = heure;
-    }
-
-    set heureFin(heure: string) {
-        this._heureFin = heure;
-    }
-
-    get activated() {
-        return this._activated;
-    }
-
-    set activated(activated: boolean) {
-        this._activated = activated;
-    }
 
     @ManyToOne(() => SalleEntity, salle => salle.specialEvents)
-    @JoinColumn({ name: "salle_id", referencedColumnName: '_id' })
+    @JoinColumn({ name: "salle_id", referencedColumnName: 'id' })
     salle: SalleEntity;
 
     @JoinTable()

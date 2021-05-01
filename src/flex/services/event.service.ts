@@ -50,7 +50,7 @@ export class EventService {
     }
 
     async findByNom(nom: string) {
-        return await this.eventDao.find({ where: { _nom: Like(`%${nom}%`) }, relations: ['profiles', 'repetitions'] });
+        return await this.eventDao.find({ where: { nom: Like(`%${nom}%`) }, relations: ['profiles', 'repetitions'] });
     }
 
     async updateEvent(_id: number, eventDto: EventDto) {

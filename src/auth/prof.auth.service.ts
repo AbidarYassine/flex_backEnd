@@ -17,7 +17,7 @@ export class ProfAuthService {
         let prof = new ProfesseurEntity();
         prof = await this.profeRepo.findOne({
             where: {
-                _email: email,
+                email: email,
             }
         });
         console.log("prof " + prof);

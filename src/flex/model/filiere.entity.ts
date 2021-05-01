@@ -8,18 +8,10 @@ import { ProfesseurEntity } from './professeur.entity';
 export class FilierEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn({ name: 'id' })
-    _id: number;
+    id: number;
     @Column({ name: 'nom', type: 'varchar', length: 20, unique: true })
-    _nom: string;
-    get nom() {
-        return this._nom;
-    }
-    get id() {
-        return this._id;
-    }
-    set nom(nom: string) {
-        this._nom = nom;
-    }
+    nom: string;
+
     @OneToMany(() => EtudiantEntity, etudiant => etudiant.filiere)
     etudiants: EtudiantEntity[];
 
