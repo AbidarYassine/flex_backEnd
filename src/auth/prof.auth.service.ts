@@ -4,7 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProfesseurDto } from 'src/flex/dto/createProfesseur.dto';
 import { ProfesseurEntity } from 'src/flex/model/professeur.entity';
 import { Repository } from 'typeorm';
-import { hash, compare } from 'bcrypt'
+import * as bcrypt from 'bcrypt';
+import { ConflictException } from '@nestjs/common';
+import { UserRole } from 'src/flex/utils/role-enum';
 
 @Injectable()
 export class ProfAuthService {
@@ -21,7 +23,7 @@ export class ProfAuthService {
             }
         });
         console.log("prof " + prof);
-        if (await compare(password, prof.password)) return prof;
+        if (await bcrypt.compare(password, prof.password)) return prof;
         return null;
 
     }
@@ -34,14 +36,26 @@ export class ProfAuthService {
         });
     }
 
-    async create(profDto: CreateProfesseurDto): Promise<ProfesseurEntity> {
+    async create(profDto: CreateProfesseurDto): Promise<Partial<ProfesseurEntity>> {
         // return await this.profeRepo.save(profDto);
         const prof = new ProfesseurEntity();
         prof.nom = profDto.nom;
         prof.prenom = profDto.prenom;
         prof.email = profDto.email;
+        prof.salt = await bcrypt.genSalt();
         prof.admin = profDto.admin;
-        prof.password = await hash(profDto.password, 10);
-        return await getRepository(ProfesseurEntity).save(prof);
+        if (profDto.admin) {
+            prof.role = UserRole.PROFESSEUR_ADMIN;
+        }
+        prof.password = await bcrypt.hash(profDto.password, prof.salt);
+        try {
+            await getRepository(ProfesseurEntity).save(prof);
+        } catch (e) {
+            throw new ConflictException(`Email is already used !! `)
+        }
+        delete prof.salt;
+        delete prof.password;
+        return prof;
+
     }
 }

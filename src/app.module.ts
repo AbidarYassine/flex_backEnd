@@ -5,10 +5,19 @@ import { AppService } from './app.service';
 import { typeOrmOption } from './config/typeorm.config';
 import { FlexModule } from './flex/flex.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guards/jwt-auth-prof-guard';
 
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmOption), FlexModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({
+      ignoreEnvFile: true,
+    }),
+    TypeOrmModule.forRoot(typeOrmOption),
+    FlexModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

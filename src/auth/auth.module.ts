@@ -5,16 +5,25 @@ import { ProfAuthService } from './prof.auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { EncryptionService } from './encryption.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './strategy-passport';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([ProfesseurEntity]),
+        PassportModule.register({
+            defaultStrategy: 'jwt',
+        }),
         JwtModule.register({
-            secretOrPrivateKey: 'secret12356789uiu87'
-        })
+            secret: 'secret12356789uiu87'
+        }),
     ],
-    providers: [ProfAuthService, AuthService],
+    providers: [
+        ProfAuthService,
+        AuthService,
+        JwtStrategy
+    ],
     controllers: [AuthController]
 })
 export class AuthModule { }

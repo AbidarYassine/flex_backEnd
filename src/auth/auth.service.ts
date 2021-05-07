@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateProfesseurDto } from 'src/flex/dto/createProfesseur.dto';
 import { LoginProfDto } from 'src/flex/dto/loginProf.dto';
@@ -16,30 +16,25 @@ export class AuthService {
     }
 
     public async login(prof: LoginProfDto): Promise<any | { status: number }> {
-        // let profEnti = new ProfesseurEntity();
-        // profEnti = await this.validate(prof);
         return this.validate(prof).then((profData) => {
             console.log(profData)
             if (!profData) {
-                return {
-                    status: 404,
-                    message: "Email ou mot de passe incorrect",
-                };
+                throw new NotFoundException(`Email ou mot de passe incorrect`)
             }
-            if (!profData.admin) {
-                return {
-                    status: 404,
-                    message: "Permission denied!!"
-                };
-            }
-
-            let payload = `${profData.email}${profData.id}`;
+            // if (!profData.admin) {
+            //     throw new HttpException(`Permission denied!!`, 403);
+            // }
+            let payload = {
+                email: profData.email,
+                role: profData.role,
+            };
+            // `${profData.email}${profData.id}`;
             const accessToken = this.jwtService.sign(payload);
 
             return {
                 expires_in: 3600,
                 access_token: accessToken,
-                prof_id: payload,
+                payload: payload,
                 status: 200
             };
 
@@ -48,5 +43,8 @@ export class AuthService {
 
     public async register(createProfDto: CreateProfesseurDto): Promise<any> {
         return await this.profAuthService.create(createProfDto);
+    }
+    public modifierModPasse() {
+        // vid 42
     }
 }

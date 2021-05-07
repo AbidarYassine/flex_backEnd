@@ -3,7 +3,7 @@ import { type } from 'node:os';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('periodes')
-export class PeriodeEntity extends BaseEntity{
+export class PeriodeEntity extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
     id: number;
     @Column({ name: 'libelle' })

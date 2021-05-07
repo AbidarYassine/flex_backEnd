@@ -1,5 +1,6 @@
 import { BaseEntity, BeforeInsert, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from "typeorm";
 import * as crypto from 'crypto';
+import { UserRole } from "../utils/role-enum";
 @Entity('users')
 @TableInheritance({ column: { type: "varchar", name: "type" } })
 export class UserEntity extends BaseEntity {
@@ -18,6 +19,10 @@ export class UserEntity extends BaseEntity {
 
     @Column({ name: "email", unique: true })
     email: string;
+
+
+
+
 
 
 }

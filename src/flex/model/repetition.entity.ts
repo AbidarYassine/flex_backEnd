@@ -7,8 +7,8 @@ import { JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm
 import { BaseEntity, Entity } from 'typeorm';
 
 @Entity('repetitions')
-export class RepetitionEntity extends BaseEntity{
-    @PrimaryGeneratedColumn({name:"id"})
+export class RepetitionEntity extends BaseEntity {
+    @PrimaryGeneratedColumn({ name: "id" })
     id: number;
 
     @ManyToOne(type => EventEntity, event => event.repetitions)
@@ -19,7 +19,7 @@ export class RepetitionEntity extends BaseEntity{
     @JoinColumn()
     periode: PeriodeEntity;
 
-    
+
     @ManyToOne(type => JourEntity, jour => jour.repetitions)
     @JoinColumn()
     jour: JourEntity;

@@ -58,6 +58,7 @@ import { JourService } from './services/jour.service';
 
 import { DoorControleService } from './services/door_controle.service';
 import { DoorControleController } from './controllers/door_controle.controller';
+import { ConfigModule } from '@nestjs/config';
 
 
 
@@ -81,7 +82,10 @@ import { DoorControleController } from './controllers/door_controle.controller';
             EventLogDao,
             ListePresenceDao,
 
-        ])],
+
+        ]),
+        ConfigModule,
+    ],
     controllers: [
         ProfesseurController,
         EtudiantController,

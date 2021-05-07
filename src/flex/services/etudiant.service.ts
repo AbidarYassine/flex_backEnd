@@ -23,16 +23,16 @@ export class EtudaintService {
         return etudaint;
     }
     async getAll(): Promise<EtudiantEntity[]> {
-        return await this.etudDao.find({relations:["filiere"]});
+        return await this.etudDao.find({ relations: ["filiere"] });
     }
     async getById(id: number): Promise<EtudiantEntity> {
-        return await this.etudDao.findOne(id, {relations:["filiere"]});
+        return await this.etudDao.findOne(id, { relations: ["filiere"] });
     }
     async getByCne(cne: string): Promise<any> {
-        return this.etudDao.findOne({ cne }, {relations:["filiere"]});
+        return this.etudDao.findOne({ cne }, { relations: ["filiere"] });
     }
     async getByEmail(email: string): Promise<any> {
-        return this.etudDao.findOne({ email }, {relations:["filiere"]});
+        return this.etudDao.findOne({ email }, { relations: ["filiere"] });
     }
 
 
