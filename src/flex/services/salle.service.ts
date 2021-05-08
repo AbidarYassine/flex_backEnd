@@ -10,7 +10,7 @@ import { SalleEntity } from "../model/salle.entity";
 @Injectable()
 export class SalleService {
 
-    constructor(private salleDao: SalleDao) {}
+    constructor(private salleDao: SalleDao) { }
 
     // *** create services ***
     async save(salleDto: SalleDto): Promise<SalleEntity> {
@@ -31,14 +31,14 @@ export class SalleService {
     }
 
     // *** update services ***
-    async update(salleDto: SalleDto, id:number): Promise<any> {
+    async update(salleDto: SalleDto, id: number): Promise<any> {
         const salle = await this.getById(id);
         const salleNom = await this.getByNom(salleDto.nom);
-        if(!salle) {
+        if (!salle) {
             request.statusCode = 404;
             return new NotFoundException(`Room not found !`);
         }
-        if(salleNom) {
+        if (salleNom) {
             request.statusCode = 401;
             return new HttpException(`Room with the same name already exists !`, 401);
         }
@@ -50,7 +50,7 @@ export class SalleService {
     // *** delete services ***
     async delete(id: number): Promise<any> {
         const salle = await this.getById(id);
-        if(!salle) {
+        if (!salle) {
             request.statusCode = 404;
             return new NotFoundException(`Room not found !`);
         }

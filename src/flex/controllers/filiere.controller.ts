@@ -1,5 +1,5 @@
 import { FilierEntity } from '../model/filiere.entity';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
 import { CreateFiliereDto } from "../dto/createFiliereDto";
 import { FiliereService } from "../services/filiere.service";
 import { ApiTags } from '@nestjs/swagger';
@@ -25,6 +25,11 @@ export class FiliereControlller {
     @HttpCode(HttpStatus.OK)
     async findAll(): Promise<FilierEntity[]> {
         return await this.filierService.getAll();
+    }
+    @Delete('nom/:nom')
+    @HttpCode(HttpStatus.OK)
+    async deleteFiliere(@Param('nom') nom: string) {
+        return await this.filierService.deleteFiliere(nom);
     }
 
 }

@@ -2,10 +2,11 @@ import { ProfesseurService } from './professeur.service';
 import { getRepository } from 'typeorm';
 import { FilierEntity } from './../model/filiere.entity';
 import { EtudaintService } from './etudiant.service';
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { FiliereDao } from "../dao/filiere.dao";
 import { CreateFiliereDto } from "../dto/createFiliereDto";
 import { ProfilService } from './profil.service';
+import { request } from 'express';
 
 @Injectable()
 export class FiliereService {
@@ -48,6 +49,14 @@ export class FiliereService {
 
     async getAll(): Promise<FilierEntity[]> {
         return await this.filierDao.find({ relations: ['profils'] });
+    }
+    async deleteFiliere(nom: string): Promise<any> {
+        const filiere = await this.findByNom(nom);
+        if (!filiere) {
+            request.statusCode = 404;
+            return new NotFoundException(`Filiere not found !`);
+        }
+        return await getRepository(FilierEntity).remove(filiere);
     }
 
 }
