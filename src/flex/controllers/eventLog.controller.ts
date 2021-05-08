@@ -1,12 +1,19 @@
+import { UserRole } from './../utils/role-enum';
+import { RolesGuard } from './../../guards/jwt-auth-prof-guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth-guard';
 import { EventLogEntity } from './../model/event-log.entity';
 import { EventService } from './../services/event.service';
 import { EventLogDto } from './../dto/event-log.dto';
 import { EventLogService } from './../services/event.log.service';
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Post } from "@nestjs/common";
 import { ApiTags } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { Roles } from '../decorators/role-decorator';
 
 @Controller("event-log")
 @ApiTags("event-log")
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.PROFESSEUR_ADMIN)
 export class EventLogController {
     constructor(
         private eventLogService: EventLogService,

@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { request } from 'express';
 import { getRepository } from 'typeorm';
 import { ProfilDao } from '../dao/profil.dao';
 import { ProfesseurDto } from '../dto/professeur.dto';
 import { ProfesseurEntity } from '../model/professeur.entity';
-import { FiliereService } from './filiere.service';
+import { UserRole } from '../utils/role-enum';
+import * as bcrypt from 'bcrypt';
 
 
 @Injectable()
@@ -17,8 +18,21 @@ export class ProfesseurService {
         prof.nom = profesDto.nom;
         prof.prenom = profesDto.prenom;
         prof.email = profesDto.email;
+        prof.salt = await bcrypt.genSalt();
         prof.admin = profesDto.admin;
-        return await getRepository(ProfesseurEntity).save(prof);
+        if (profesDto.admin) {
+            prof.role = UserRole.PROFESSEUR_ADMIN;
+        }
+        prof.password = await bcrypt.hash(profesDto.password, prof.salt);
+        try {
+            await getRepository(ProfesseurEntity).save(prof);
+        } catch (e) {
+            throw new ConflictException(`Email is already used !! `)
+        }
+        delete prof.salt;
+        delete prof.password;
+        return prof;
+
     }
 
     async update(profesDto: ProfesseurDto, id: number): Promise<any> {

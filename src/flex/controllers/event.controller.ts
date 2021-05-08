@@ -4,13 +4,19 @@ import { EventService } from './../services/event.service';
 import { EventDto } from './../dto/event.dto';
 import { CreneauService } from './../services/creneau.service';
 import { JourService } from './../services/jour.service';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { EventDao } from '../dao/event.dao';
 import { getRepository } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/guards/jwt-auth-guard';
+import { RolesGuard } from 'src/guards/jwt-auth-prof-guard';
+import { Roles } from '../decorators/role-decorator';
+import { UserRole } from '../utils/role-enum';
 
 @Controller('events')
 @ApiTags("events")
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.PROFESSEUR_ADMIN)
 export class EventController {
     constructor(
         private eventService: EventService,

@@ -1,15 +1,21 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { getRepository } from 'typeorm';
+import { ChangePassworDto } from './changePassworDto';
+import { ProfesseurService } from 'src/flex/services/professeur.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateProfesseurDto } from 'src/flex/dto/createProfesseur.dto';
 import { LoginProfDto } from 'src/flex/dto/loginProf.dto';
 import { ProfesseurEntity } from 'src/flex/model/professeur.entity';
 import { ProfAuthService } from './prof.auth.service';
+import { ProfesseurDto } from 'src/flex/dto/professeur.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
     constructor(
+        private readonly profService: ProfesseurService,
         private readonly profAuthService: ProfAuthService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+
     ) { }
     private async validate(profData: LoginProfDto): Promise<ProfesseurEntity> {
         return await this.profAuthService.findByEmailAndPassword(profData.email, profData.password);
@@ -41,10 +47,16 @@ export class AuthService {
         });
     }
 
-    public async register(createProfDto: CreateProfesseurDto): Promise<any> {
-        return await this.profAuthService.create(createProfDto);
+    public async register(createProfDto: ProfesseurDto): Promise<any> {
+        return await this.profService.saveProfesseur(createProfDto);
     }
-    public modifierModPasse() {
-        // vid 42
+    public async modifierModPasse(changePasswordto: ChangePassworDto, user: ProfesseurEntity) {
+        if (await bcrypt.compare(changePasswordto.oldPassword, user.password)) {
+            user.password = await bcrypt.hash(changePasswordto.newPassword, user.salt);
+            return await getRepository(ProfesseurEntity).save(user);
+        } else {
+            throw new NotFoundException();
+        }
+
     }
 }

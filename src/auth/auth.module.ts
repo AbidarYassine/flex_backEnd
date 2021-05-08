@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategy-passport';
 import { ConfigModule } from '@nestjs/config';
+import { ProfesseurService } from 'src/flex/services/professeur.service';
 
 @Module({
     imports: [
@@ -22,7 +23,8 @@ import { ConfigModule } from '@nestjs/config';
     providers: [
         ProfAuthService,
         AuthService,
-        JwtStrategy
+        JwtStrategy,
+        ProfesseurService
     ],
     controllers: [AuthController]
 })
