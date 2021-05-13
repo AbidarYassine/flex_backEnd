@@ -10,6 +10,7 @@ import { ProfesseurEntity } from '../model/professeur.entity';
 import { ProfesseurService } from '../services/professeur.service';
 import { User } from '../decorators/user.logged';
 import { UserRole } from '../utils/role-enum';
+import { CreateProfesseurDto } from '../dto/createProfesseur.dto';
 
 @Controller('professeurs')
 @ApiTags("professeurs")
@@ -22,7 +23,7 @@ export class ProfesseurController {
     @Roles(UserRole.PROFESSEUR_ADMIN)
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    async saveProf(@Body() dtoProfes: ProfesseurDto) {
+    async saveProf(@Body() dtoProfes: CreateProfesseurDto) {
         const profFound = await this.getByEmail(dtoProfes.email);
         if (profFound) {
             throw new HttpException(`Teacher with ${dtoProfes.email} already exists`, HttpStatus.UNPROCESSABLE_ENTITY);

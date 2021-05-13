@@ -1,3 +1,4 @@
+import { CreateProfesseurDto } from 'src/flex/dto/createProfesseur.dto';
 import { ConflictException, HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { request } from 'express';
 import { getRepository } from 'typeorm';
@@ -13,7 +14,7 @@ export class ProfesseurService {
     constructor(
     ) { }
 
-    async saveProfesseur(profesDto: ProfesseurDto): Promise<ProfesseurEntity> {
+    async saveProfesseur(profesDto: CreateProfesseurDto): Promise<ProfesseurEntity> {
         const prof = new ProfesseurEntity();
         prof.nom = profesDto.nom;
         prof.prenom = profesDto.prenom;

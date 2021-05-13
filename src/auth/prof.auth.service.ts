@@ -14,16 +14,16 @@ export class ProfAuthService {
     ) { }
 
     async findByEmailAndPassword(email: string, password: string): Promise<ProfesseurEntity> {
-        let prof = new ProfesseurEntity();
-        prof = await this.profeRepo.findOne({
+        const prof = await this.profeRepo.findOne({
             where: {
-                email: email,
+                email,
             }
         });
+
+        if(prof == null) return null;
         console.log("prof " + prof);
         if (await bcrypt.compare(password, prof.password)) return prof;
         return null;
-
     }
 
     async findById(id: number): Promise<ProfesseurEntity> {

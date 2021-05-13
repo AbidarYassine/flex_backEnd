@@ -1,3 +1,4 @@
+import { CreateProfesseurDto } from 'src/flex/dto/createProfesseur.dto';
 import { getRepository } from 'typeorm';
 import { ChangePassworDto } from './changePassworDto';
 import { ProfesseurService } from 'src/flex/services/professeur.service';
@@ -47,7 +48,7 @@ export class AuthService {
         });
     }
 
-    public async register(createProfDto: ProfesseurDto): Promise<any> {
+    public async register(createProfDto: CreateProfesseurDto): Promise<any> {
         return await this.profService.saveProfesseur(createProfDto);
     }
     public async modifierModPasse(changePasswordto: ChangePassworDto, user: ProfesseurEntity) {
