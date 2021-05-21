@@ -3,7 +3,7 @@ import { NotFoundException, UseGuards } from '@nestjs/common';
 import { EtudiantEntity } from './../model/etudiant.entity';
 import { Controller, Post, Get, Body, Param, Put, Delete, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
 import { EtudiantDto } from '../dto/etudiant.dto';
-import { EtudaintService } from '../services/etudiant.service';
+import { EtudaintService as EtudiantService } from '../services/etudiant.service';
 import { FilierEntity } from '../model/filiere.entity';
 import { getRepository } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
@@ -15,7 +15,7 @@ import { UserRole } from '../utils/role-enum';
 @ApiTags("etudiants")
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class EtudiantController {
-    constructor(private etuService: EtudaintService) { }
+    constructor(private etuService: EtudiantService) { }
 
     @Roles(UserRole.PROFESSEUR_ADMIN)
     @Post()

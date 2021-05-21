@@ -2,7 +2,7 @@ import { AutreEntity } from './autre.entity';
 import { SpecialEventEntity } from './special_event.entity';
 import { EventEntity } from './event.entity';
 import { FilierEntity } from './filiere.entity';
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProfesseurEntity } from './professeur.entity';
 
 @Entity('profils')
@@ -34,7 +34,7 @@ export class ProfilEntity extends BaseEntity {
     )
     autres: AutreEntity[];
 
-    @ManyToMany(()=> EventEntity, event => event.profiles)
+    @ManyToMany(() => EventEntity, event => event.profiles)
     @ManyToMany(() => EventEntity, event => event.profiles)
     events: EventEntity;
 

@@ -1,6 +1,6 @@
 import { FilierEntity } from './../model/filiere.entity';
 import { profile } from 'node:console';
-import { getRepository } from 'typeorm';
+import { getRepository, getConnection } from 'typeorm';
 import { ProfilEntity } from './../model/profil.entity';
 import { ProfilDto } from './../dto/profil.dto';
 import { ProfilDao } from './../dao/profil.dao';
@@ -53,6 +53,19 @@ export class ProfilService {
     async findById(id: number): Promise<ProfilEntity> {
         return await this.profilDao.findOne(id, { relations: ['filieres', 'professeurs'] });
     }
+    async deleteById(id: number): Promise<Partial<ProfilEntity>> {
+        const profile = await this.profilDao.findOne(id, { relations: ['filieres', 'professeurs'] });
+        if (!profile) {
+            throw new HttpException(`profile not found ${id}`, HttpStatus.NOT_FOUND);
+        }
+        await getConnection()
+            .createQueryBuilder()
+            .delete()
+            .from(ProfilEntity)
+            .where("id = :id", { id: id })
+            .execute();
+        return profile;
+    }
     async loadByLib(libelle: string, throwException: boolean = false): Promise<ProfilEntity> {
         const foundProfil = await getRepository(ProfilEntity).findOne({ libelle }, { relations: ['filieres', 'professeurs'] });
         if (throwException) {
@@ -67,24 +80,24 @@ export class ProfilService {
         const profile = await this.findById(profileId);
         // console.log("Profs", profile.professeurs);
         let found = false;
-        profile.professeurs.forEach(p =>{
-            if(p.id == userId){
+        profile.professeurs.forEach(p => {
+            if (p.id == userId) {
                 found = true;
                 return;
             }
         });
-        if(found) return found;
+        if (found) return found;
 
-        profile.autres.forEach(a =>{
-            if(a.id == userId){
+        profile.autres.forEach(a => {
+            if (a.id == userId) {
                 found = true;
                 return;
             }
         });
-        if(found) return found;
+        if (found) return found;
 
         const etudiant = await this.etudiantService.getById(userId);
-        if(etudiant){
+        if (etudiant) {
             return await this.isFiliereInProfile(etudiant.filiere, profileId);
         }
 
@@ -96,8 +109,8 @@ export class ProfilService {
         const profile = await this.findById(profileId);
         // console.log("Profs", profile.professeurs);
         let found = false;
-        profile.professeurs.forEach(p =>{
-            if(p.id == prof.id){
+        profile.professeurs.forEach(p => {
+            if (p.id == prof.id) {
                 found = true;
                 return;
             }
@@ -111,7 +124,7 @@ export class ProfilService {
         // console.log("Profs", profile.professeurs);
         let found = false;
         profile.filieres.forEach(f => {
-            if(f.id == filiere.id){
+            if (f.id == filiere.id) {
                 found = true;
                 return;
             }
