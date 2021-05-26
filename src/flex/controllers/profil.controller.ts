@@ -9,8 +9,8 @@ import { RolesGuard } from 'src/guards/jwt-auth-prof-guard';
 import { Roles } from '../decorators/role-decorator';
 import { UserRole } from '../utils/role-enum';
 
-@Controller('profils')
-@ApiTags("profils")
+@Controller('profiles')
+@ApiTags("profiles")
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ProfilController {
     constructor(private profilService: ProfilService) { }
