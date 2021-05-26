@@ -2,7 +2,18 @@ import { Roles } from './../decorators/role-decorator';
 import { RolesGuard } from './../../guards/jwt-auth-prof-guard';
 
 import { UseGuards } from '@nestjs/common';
-import { Controller, Post, Get, Body, Param, Put, Delete, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Param,
+  Put,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/guards/jwt-auth-guard';
 import { ProfesseurDto } from '../dto/professeur.dto';
