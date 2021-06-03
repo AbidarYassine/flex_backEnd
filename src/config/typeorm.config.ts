@@ -8,7 +8,7 @@ export const typeOrmOption: TypeOrmModuleOptions = {
     port: 3306,
     username: 'root',
     password: '',
-    database: 'flex_db2',
+    database: 'flex_db',
     entities: [__dirname + "/../**/*.entity{.ts,.js}"],
     synchronize: false,
 
