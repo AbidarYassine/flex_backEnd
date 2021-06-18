@@ -2,6 +2,7 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 export const typeOrmOption: TypeOrmModuleOptions = {
 
+
   // local db
   type: "mysql",
   host: "localhost",
@@ -25,3 +26,4 @@ export const typeOrmOption: TypeOrmModuleOptions = {
 
 
 };
+
