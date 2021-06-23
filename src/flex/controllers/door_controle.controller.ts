@@ -11,8 +11,8 @@ import { Roles } from '../decorators/role-decorator';
 
 @Controller('open-door')
 @ApiTags("open-door")
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.PROFESSEUR_ADMIN)
+// @UseGuards(JwtAuthGuard, RolesGuard)
+// @Roles(UserRole.PROFESSEUR_ADMIN)
 export class DoorControleController {
 
     constructor(
@@ -21,7 +21,7 @@ export class DoorControleController {
         private porteService: PorteService,
         private etudiantService: EtudaintService,
     ) { }
-    @Roles(UserRole.PROFESSEUR_ADMIN)
+    // @Roles(UserRole.PROFESSEUR_ADMIN)
     @Get('door/:door/prof/:email')
     @HttpCode(HttpStatus.OK)
     async grantAccessForProf(@Param('email') profEmail: string, @Param('door') doorId: number): Promise<Boolean> {
@@ -38,7 +38,7 @@ export class DoorControleController {
         return await this.dcService.grantAccessForProf(profEmail, doorId);
     }
 
-    @Roles(UserRole.PROFESSEUR_ADMIN)
+    // @Roles(UserRole.PROFESSEUR_ADMIN)
     @Get('door/:door/etudiant/:cne')
     @HttpCode(HttpStatus.OK)
     async grantAccessForEtudiant(@Param('cne') cne: string, @Param('door') doorId: number): Promise<Boolean> {
