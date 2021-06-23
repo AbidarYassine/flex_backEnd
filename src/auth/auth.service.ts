@@ -58,7 +58,7 @@ export class AuthService {
       user.password = await bcrypt.hash(changePasswordto.newPassword, user.salt);
       return await getRepository(ProfesseurEntity).save(user);
     } else {
-      throw new NotFoundException();
+      throw new NotFoundException("password incorrect");
     }
 
   }
