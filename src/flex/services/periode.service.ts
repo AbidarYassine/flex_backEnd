@@ -1,49 +1,55 @@
-import { Injectable } from '@nestjs/common';
-import { getRepository, Like } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { getRepository, Like } from "typeorm";
 import { PeriodeDao } from "../dao/periode.dao";
 import { PeriodeDto } from "../dto/periode.dto";
 import { PeriodeEntity } from "../model/periode.entity";
 
 @Injectable()
-export class PeriodeService{
-    constructor(
-        private periodeDao: PeriodeDao,
-    ){}
+export class PeriodeService {
+  constructor(private periodeDao: PeriodeDao) {
+    this.insertPeriode();
+  }
 
-    async createPeriode(periodeDto: PeriodeDto){
-        const periode = new PeriodeEntity();
-        periode.libelle = periodeDto.libelle;
-        periode.dateDeb = periodeDto.dateDeb;
-        periode.dateFin = periodeDto.dateFin;
+  async insertPeriode() {
+    const persiodes = await this.periodeDao.find();
 
-        return await getRepository(PeriodeEntity).save(periode);
-    }
+    if (persiodes.length == 0) await this.periodeDao.insertPeriode();
+  }
 
-    async findAll(){
-        return this.periodeDao.find();
-    }
+  async createPeriode(periodeDto: PeriodeDto) {
+    const periode = new PeriodeEntity();
+    periode.libelle = periodeDto.libelle;
+    periode.dateDeb = periodeDto.dateDeb;
+    periode.dateFin = periodeDto.dateFin;
 
-    async findById(id: number){
-        return this.periodeDao.findOne(id);
-    }
+    return await getRepository(PeriodeEntity).save(periode);
+  }
 
-    async findByLibelle(libelle: string){
-        return this.periodeDao.find({ libelle: Like(`%${libelle}%`) });
-    }
+  async findAll() {
+    return this.periodeDao.find();
+  }
 
-    async updatePeriode(id: number, periodeDto: PeriodeDto){
-        const periode = await this.periodeDao.findOne(id);
+  async findById(id: number) {
+    return this.periodeDao.findOne(id);
+  }
 
-        periode.libelle = periodeDto.libelle;
-        periode.dateDeb = periodeDto.dateDeb;
-        periode.dateFin = periodeDto.dateFin;
+  async findByLibelle(libelle: string) {
+    return this.periodeDao.find({ libelle: Like(`%${libelle}%`) });
+  }
 
-        return await getRepository(PeriodeEntity).save(periode);
-    }
+  async updatePeriode(id: number, periodeDto: PeriodeDto) {
+    const periode = await this.periodeDao.findOne(id);
 
-    async delete(id: number){
-        const periode = await this.periodeDao.findOne(id);
+    periode.libelle = periodeDto.libelle;
+    periode.dateDeb = periodeDto.dateDeb;
+    periode.dateFin = periodeDto.dateFin;
 
-        return await getRepository(PeriodeEntity).remove(periode);
-    }
+    return await getRepository(PeriodeEntity).save(periode);
+  }
+
+  async delete(id: number) {
+    const periode = await this.periodeDao.findOne(id);
+
+    return await getRepository(PeriodeEntity).remove(periode);
+  }
 }

@@ -8,17 +8,19 @@ import { EtudaintService as EtudiantService } from "../services/etudiant.service
 import { PeriodeService } from "../services/periode.service";
 import { CreneauService } from "../services/creneau.service";
 import { CreneauEntity } from "../model/creneau.entity";
+import { JourService } from "../services/jour.service";
+import { JourEntity } from "../model/jour.entity";
 
-@Controller("creneau")
-@ApiTags("creneau")
-export class CreneauController {
-  constructor(private creneauService: CreneauService) {
+@Controller("jours")
+@ApiTags("jour")
+export class JourController {
+  constructor(private jourService: JourService) {
   }
 
   @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getAll(): Promise<CreneauEntity[]> {
-    return await this.creneauService.getAll();
+  async getAll(): Promise<JourEntity[]> {
+    return await this.jourService.getJours();
   }
 }
