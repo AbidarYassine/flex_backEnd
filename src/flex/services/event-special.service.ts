@@ -3,7 +3,7 @@ import { TimeUtils } from "./../utils/timeUtils";
 import { LocalTime } from "@js-joda/core";
 import { LocalDate } from "@js-joda/core";
 import { SalleService } from "./salle.service";
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { getRepository, Like } from "typeorm";
 
 import { SpecialEventDao } from "../dao/special-event.dao";
@@ -86,6 +86,9 @@ export class SpecialEventService {
 
   async delete(id: number) {
     const specialEvent = await this.specialEventDao.findOne(id);
+    if (!specialEvent) {
+      throw new NotFoundException("Event Not Found");
+    }
     return await getRepository(SpecialEventEntity).remove(specialEvent);
   }
 

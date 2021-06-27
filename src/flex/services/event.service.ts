@@ -3,7 +3,7 @@ import { SalleEntity } from "./../model/salle.entity";
 import { EventDao } from "./../dao/event.dao";
 import { ProfilService } from "./profil.service";
 import { EventEntity } from "./../model/event.entity";
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { EventDto } from "../dto/event.dto";
 import { SalleService } from "./salle.service";
 import { RepetitionService } from "./repetition.service";
@@ -79,6 +79,9 @@ export class EventService {
 
   async delete(id: number) {
     const event = await this.eventDao.findOne(id);
+    if (!event) {
+      throw  new NotFoundException("Event Not found");
+    }
 
     return await getRepository(EventEntity).remove(event);
   }

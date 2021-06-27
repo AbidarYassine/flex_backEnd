@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, HttpCode, HttpStatus, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Roles } from "../decorators/role-decorator";
 import { UserRole } from "../utils/role-enum";
@@ -13,6 +13,7 @@ import { RepetitionEntity } from "../model/repetition.entity";
 import { RepetitionDto } from "../dto/repetition.dto";
 import { JwtAuthGuard } from "../../guards/jwt-auth-guard";
 import { RolesGuard } from "../../guards/jwt-auth-prof-guard";
+import { EventDto } from "../dto/event.dto";
 
 @Controller("repetitions")
 @ApiTags("repetitions")
@@ -29,16 +30,24 @@ export class RepetitionController {
   }
 
   @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
+  @Get(":id")
+  @HttpCode(HttpStatus.OK)
+  async findById(@Param() id: number): Promise<RepetitionEntity> {
+    return await this.repetitionService.findById(id);
+  }
+
+  @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async create(repetitionDto: RepetitionDto) {
+  async create(@Body() repetitionDto: RepetitionDto) {
+    console.log(repetitionDto);
     return await this.repetitionService.createRepetition(repetitionDto);
   }
 
   @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
-  @Delete()
-  @HttpCode(HttpStatus.NO_CONTENT)
-  async delete(repetitionId: number) {
-    return await this.repetitionService.delete(repetitionId);
+  @Delete(":id")
+  @HttpCode(HttpStatus.OK)
+  async delete(@Param() id: number) {
+    return await this.repetitionService.delete(id);
   }
 }

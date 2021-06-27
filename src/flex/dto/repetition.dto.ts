@@ -1,9 +1,9 @@
 import { IsNumber } from "class-validator";
-import { Optional } from "@nestjs/common";
+
 
 export class RepetitionDto {
 
-  @Optional()
+  @IsNumber()
   readonly eventId: number;
   @IsNumber()
   readonly periodeId: number;
