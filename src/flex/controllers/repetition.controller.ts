@@ -43,6 +43,14 @@ export class RepetitionController {
     console.log(repetitionDto);
     return await this.repetitionService.createRepetition(repetitionDto);
   }
+  
+  @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
+  @Put()
+  @HttpCode(HttpStatus.OK)
+  async update(@Param() id: number, @Body() repetitionDto: RepetitionDto) {
+    return await this.repetitionService.updateRepetition(id, repetitionDto);
+  }
+
 
   @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
   @Delete(":id")
