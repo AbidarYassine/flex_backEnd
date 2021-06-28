@@ -32,7 +32,26 @@ export class RepetitionService {
     }
     return rep;
   }
+  
+      async updateRepetition(id: number, repetitionDto: RepetitionDto) {
 
+        const { eventId, periodeId, creaneauOrder, jourOrder } = repetitionDto
+
+        const rep = await this.repetitionDao.findOne({id})
+
+        const event = await this.eventService.findById(eventId)
+        const creneau = await this.creneauService.getCreneau(creaneauOrder)
+        const periode = await this.periodeService.findById(periodeId)
+        const jour = await this.jourService.getJour(jourOrder)
+
+        rep.creneau = creneau
+        rep.event = event
+        rep.periode = periode
+        rep.jour = jour
+
+        return await this.repetitionDao.save(rep)
+
+    }
 
   async delete(id: number) {
     const repetition = await this.repetitionDao.findOne(id);
