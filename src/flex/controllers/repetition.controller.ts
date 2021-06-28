@@ -45,7 +45,7 @@ export class RepetitionController {
   }
   
   @Roles(UserRole.PROFESSEUR_ADMIN, UserRole.PROFESSEUR)
-  @Put()
+  @Put(":id")
   @HttpCode(HttpStatus.OK)
   async update(@Param() id: number, @Body() repetitionDto: RepetitionDto) {
     return await this.repetitionService.updateRepetition(id, repetitionDto);
