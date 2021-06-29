@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseGuards, Put } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Roles } from "../decorators/role-decorator";
 import { UserRole } from "../utils/role-enum";

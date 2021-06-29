@@ -7,12 +7,21 @@ import { RepetitionEntity } from "../model/repetition.entity";
 import { LocalDate, LocalTime } from "@js-joda/core";
 import { DateUtils } from "../utils/dateUtils";
 import { TimeUtils } from "../utils/timeUtils";
+import { JourService } from "./jour.service";
+import { PeriodeService } from "./periode.service";
+import { EventService } from "./event.service";
+import { CreneauService } from "./creneau.service";
+
 
 @Injectable()
 export class RepetitionService {
   constructor(
-    // private eventService: EventService,
-    private repetitionDao: RepetitionDao
+    private eventService: EventService,
+    private repetitionDao: RepetitionDao , 
+    private jourService : JourService ,
+    private periodeService : PeriodeService , 
+    private creneauService : CreneauService , 
+
   ) {
   }
 
